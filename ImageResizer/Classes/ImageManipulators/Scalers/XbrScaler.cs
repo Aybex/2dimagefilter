@@ -23,25 +23,25 @@ using System.Drawing;
 using Imager;
 using Imager.Interface;
 
-namespace Classes.ImageManipulators.Scalers {
-  internal class XbrScaler : AScaler {
-    private readonly XbrScalerType _type;
-    private readonly bool _allowAlphaBlending;
+namespace Classes.ImageManipulators.Scalers; 
 
-    #region Implementation of AScaler
-    public override cImage Apply(cImage source) => source.ApplyScaler(this._type, this._allowAlphaBlending, default(Rectangle?));
-    public override byte ScaleFactorX { get; }
-    public override byte ScaleFactorY { get; }
-    public override string Description => ReflectionUtils.GetDescriptionForEnumValue(this._type);
+internal class XbrScaler : AScaler {
+  private readonly XbrScalerType _type;
+  private readonly bool _allowAlphaBlending;
 
-    #endregion
+  #region Implementation of AScaler
+  public override cImage Apply(cImage source) => source.ApplyScaler(_type, _allowAlphaBlending, default(Rectangle?));
+  public override byte ScaleFactorX { get; }
+  public override byte ScaleFactorY { get; }
+  public override string Description => ReflectionUtils.GetDescriptionForEnumValue(_type);
 
-    public XbrScaler(XbrScalerType type, bool allowAlphaBlending) {
-      var info = cImage.GetPixelScalerInfo(type);
-      this._type = type;
-      this._allowAlphaBlending = allowAlphaBlending;
-      this.ScaleFactorX = info.Item1;
-      this.ScaleFactorY = info.Item2;
-    }
+  #endregion
+
+  public XbrScaler(XbrScalerType type, bool allowAlphaBlending) {
+    var info = cImage.GetPixelScalerInfo(type);
+    _type = type;
+    _allowAlphaBlending = allowAlphaBlending;
+    ScaleFactorX = info.Item1;
+    ScaleFactorY = info.Item2;
   }
 }

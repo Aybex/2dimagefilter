@@ -24,60 +24,60 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
-namespace Imager {
-  partial class cImage {
-    /// <summary>
-    /// Stores all available parameterless pixel scalers.
-    /// </summary>
-    public static readonly InterpolationMode[] INTERPOLATORS = {
-      InterpolationMode.NearestNeighbor,
-      InterpolationMode.Bilinear,
-      InterpolationMode.Bicubic,
-      InterpolationMode.HighQualityBilinear,
-      InterpolationMode.HighQualityBicubic,
-    };
+namespace Imager; 
 
-    /// <summary>
-    /// Applies the GDI+ pixel scaler.
-    /// </summary>
-    /// <param name="type">The type of scaler to use.</param>
-    /// <param name="width">The width.</param>
-    /// <param name="height">The height.</param>
-    /// <param name="filterRegion">The filter region, if any.</param>
-    /// <returns>
-    /// The rescaled image.
-    /// </returns>
-    public cImage ApplyScaler(InterpolationMode type, int width, int height, Rectangle? filterRegion = null) {
-      if (!((IList<InterpolationMode>)INTERPOLATORS).Contains(type))
-        throw new NotSupportedException(string.Format("Interpolation mode '{0}' not supported.", type));
+partial class cImage {
+  /// <summary>
+  /// Stores all available parameterless pixel scalers.
+  /// </summary>
+  public static readonly InterpolationMode[] INTERPOLATORS = {
+    InterpolationMode.NearestNeighbor,
+    InterpolationMode.Bilinear,
+    InterpolationMode.Bicubic,
+    InterpolationMode.HighQualityBilinear,
+    InterpolationMode.HighQualityBicubic,
+  };
 
-      var startX = filterRegion == null ? 0 : Math.Max(0, filterRegion.Value.Left);
-      var startY = filterRegion == null ? 0 : Math.Max(0, filterRegion.Value.Top);
+  /// <summary>
+  /// Applies the GDI+ pixel scaler.
+  /// </summary>
+  /// <param name="type">The type of scaler to use.</param>
+  /// <param name="width">The width.</param>
+  /// <param name="height">The height.</param>
+  /// <param name="filterRegion">The filter region, if any.</param>
+  /// <returns>
+  /// The rescaled image.
+  /// </returns>
+  public cImage ApplyScaler(InterpolationMode type, int width, int height, Rectangle? filterRegion = null) {
+    if (!((IList<InterpolationMode>)INTERPOLATORS).Contains(type))
+      throw new NotSupportedException(string.Format("Interpolation mode '{0}' not supported.", type));
 
-      var endX = filterRegion == null ? this.Width : Math.Min(this.Width, filterRegion.Value.Right);
-      var endY = filterRegion == null ? this.Height : Math.Min(this.Height, filterRegion.Value.Bottom);
+    var startX = filterRegion == null ? 0 : Math.Max(0, filterRegion.Value.Left);
+    var startY = filterRegion == null ? 0 : Math.Max(0, filterRegion.Value.Top);
 
-      // run through scaler
-      var bitmap = new Bitmap(width, height);
-      using (var graphics = Graphics.FromImage(bitmap)) {
+    var endX = filterRegion == null ? Width : Math.Min(Width, filterRegion.Value.Right);
+    var endY = filterRegion == null ? Height : Math.Min(Height, filterRegion.Value.Bottom);
 
-        //set the resize quality modes to high quality                
-        graphics.CompositingQuality = CompositingQuality.HighQuality;
-        graphics.InterpolationMode = type;
-        graphics.SmoothingMode = SmoothingMode.HighQuality;
+    // run through scaler
+    var bitmap = new Bitmap(width, height);
+    using (var graphics = Graphics.FromImage(bitmap)) {
 
-        //draw the image into the target bitmap                
-        //graphics.DrawImage(source, 0, 0, result.Width, result.Height);
+      //set the resize quality modes to high quality                
+      graphics.CompositingQuality = CompositingQuality.HighQuality;
+      graphics.InterpolationMode = type;
+      graphics.SmoothingMode = SmoothingMode.HighQuality;
 
-        // FIXME: this is a hack to prevent the microsoft bug from creating a white pixel on top and left border (see http://forums.asp.net/t/1031961.aspx/1)
-        graphics.DrawImage(filterRegion == null ? this.ToBitmap() : this.ToBitmap(startX, startY, endX - startX, endY - startY), -1, -1, bitmap.Width + 1, bitmap.Height + 1);
-      }
-      var result = FromBitmap(bitmap);
-      result.HorizontalOutOfBoundsMode = this.HorizontalOutOfBoundsMode;
-      result.VerticalOutOfBoundsMode = this.VerticalOutOfBoundsMode;
-      return result;
+      //draw the image into the target bitmap                
+      //graphics.DrawImage(source, 0, 0, result.Width, result.Height);
 
+      // FIXME: this is a hack to prevent the microsoft bug from creating a white pixel on top and left border (see http://forums.asp.net/t/1031961.aspx/1)
+      graphics.DrawImage(filterRegion == null ? ToBitmap() : ToBitmap(startX, startY, endX - startX, endY - startY), -1, -1, bitmap.Width + 1, bitmap.Height + 1);
     }
+    var result = FromBitmap(bitmap);
+    result.HorizontalOutOfBoundsMode = HorizontalOutOfBoundsMode;
+    result.VerticalOutOfBoundsMode = VerticalOutOfBoundsMode;
+    return result;
 
   }
+
 }

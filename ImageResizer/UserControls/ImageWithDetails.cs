@@ -24,78 +24,78 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace ImageResizer.UserControls {
-  /// <summary>
-  /// This is just a control with an image and a details pane below it.
-  /// </summary>
-  [DefaultEvent("Click")]
-  public partial class ImageWithDetails : UserControl {
+namespace ImageResizer.UserControls; 
 
-    #region props
+/// <summary>
+/// This is just a control with an image and a details pane below it.
+/// </summary>
+[DefaultEvent("Click")]
+public partial class ImageWithDetails : UserControl {
 
-    public new event EventHandler Click;
+  #region props
 
-    [DefaultValue(PictureBoxSizeMode.Normal)]
-    public PictureBoxSizeMode SizeMode {
-      get => this.pbImage.SizeMode;
-      set {
-        this.pbImage.SizeMode = value;
-        this._CenterPictureBox();
-      }
+  public new event EventHandler Click;
+
+  [DefaultValue(PictureBoxSizeMode.Normal)]
+  public PictureBoxSizeMode SizeMode {
+    get => pbImage.SizeMode;
+    set {
+      pbImage.SizeMode = value;
+      _CenterPictureBox();
     }
-
-    [DefaultValue(null)]
-    public Image Image {
-      get => this.pbImage.Image;
-      set {
-        this.pbImage.Image = value;
-        this._CenterPictureBox();
-
-        if (value == null) {
-          this.lDetails.Text = string.Empty;
-          return;
-        }
-
-        var width = value.Width;
-        var height = value.Height;
-        this.lDetails.Text = string.Format("{0} x {1}", width, height);
-      }
-    }
-    #endregion
-
-    public ImageWithDetails() {
-      this.InitializeComponent();
-    }
-
-    protected void _EventWrapper(object sender, EventArgs args) => this.OnClick(args);
-    protected new void OnClick(EventArgs e) => this.Click?.Invoke(this, e);
-
-    private void _CenterPictureBox() {
-      var pictureBox = this.pbImage;
-      var panel = this.pnImage;
-
-      if (this.SizeMode == PictureBoxSizeMode.AutoSize || this.SizeMode == PictureBoxSizeMode.StretchImage || this.SizeMode == PictureBoxSizeMode.Zoom) {
-        pictureBox.Dock = DockStyle.Fill;
-        panel.AutoScroll = false;
-        return;
-      }
-
-      var image = this.Image;
-      if (image == null) {
-        pictureBox.Dock = DockStyle.Fill;
-        panel.AutoScroll = false;
-        return;
-      }
-
-      pictureBox.Dock = DockStyle.None;
-      pictureBox.Width = image.Width;
-      pictureBox.Height = image.Height;
-      pictureBox.Left = Math.Max(0, (panel.Width - image.Width) / 2);
-      pictureBox.Top = Math.Max(0, (panel.Height - image.Height) / 2);
-
-      panel.AutoScroll = image.Width > panel.Width || image.Height > panel.Height;
-    }
-
-    private void pnImage_SizeChanged(object sender, EventArgs e) => this._CenterPictureBox();
   }
+
+  [DefaultValue(null)]
+  public Image Image {
+    get => pbImage.Image;
+    set {
+      pbImage.Image = value;
+      _CenterPictureBox();
+
+      if (value == null) {
+        lDetails.Text = string.Empty;
+        return;
+      }
+
+      var width = value.Width;
+      var height = value.Height;
+      lDetails.Text = string.Format("{0} x {1}", width, height);
+    }
+  }
+  #endregion
+
+  public ImageWithDetails() {
+    InitializeComponent();
+  }
+
+  protected void _EventWrapper(object sender, EventArgs args) => OnClick(args);
+  protected new void OnClick(EventArgs e) => Click?.Invoke(this, e);
+
+  private void _CenterPictureBox() {
+    var pictureBox = pbImage;
+    var panel = pnImage;
+
+    if (SizeMode == PictureBoxSizeMode.AutoSize || SizeMode == PictureBoxSizeMode.StretchImage || SizeMode == PictureBoxSizeMode.Zoom) {
+      pictureBox.Dock = DockStyle.Fill;
+      panel.AutoScroll = false;
+      return;
+    }
+
+    var image = Image;
+    if (image == null) {
+      pictureBox.Dock = DockStyle.Fill;
+      panel.AutoScroll = false;
+      return;
+    }
+
+    pictureBox.Dock = DockStyle.None;
+    pictureBox.Width = image.Width;
+    pictureBox.Height = image.Height;
+    pictureBox.Left = Math.Max(0, (panel.Width - image.Width) / 2);
+    pictureBox.Top = Math.Max(0, (panel.Height - image.Height) / 2);
+
+    panel.AutoScroll = image.Width > panel.Width || image.Height > panel.Height;
+  }
+
+  private void pnImage_SizeChanged(object sender, EventArgs e) => _CenterPictureBox();
 }

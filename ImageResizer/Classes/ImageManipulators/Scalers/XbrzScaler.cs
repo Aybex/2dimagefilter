@@ -23,23 +23,23 @@ using System.Drawing;
 using Imager;
 using Imager.Interface;
 
-namespace Classes.ImageManipulators.Scalers {
-  internal class XbrzScaler : AScaler {
-    private readonly XbrzScalerType _type;
+namespace Classes.ImageManipulators.Scalers; 
 
-    #region Implementation of AScaler
-    public override cImage Apply(cImage source) => source.ApplyScaler(this._type, default(Rectangle?));
-    public override byte ScaleFactorX { get; }
-    public override byte ScaleFactorY { get; }
-    public override string Description => ReflectionUtils.GetDescriptionForEnumValue(this._type);
+internal class XbrzScaler : AScaler {
+  private readonly XbrzScalerType _type;
 
-    #endregion
+  #region Implementation of AScaler
+  public override cImage Apply(cImage source) => source.ApplyScaler(_type, default(Rectangle?));
+  public override byte ScaleFactorX { get; }
+  public override byte ScaleFactorY { get; }
+  public override string Description => ReflectionUtils.GetDescriptionForEnumValue(_type);
 
-    public XbrzScaler(XbrzScalerType type) {
-      var info = cImage.GetPixelScalerInfo(type);
-      this._type = type;
-      this.ScaleFactorX = info.Item1;
-      this.ScaleFactorY = info.Item2;
-    }
+  #endregion
+
+  public XbrzScaler(XbrzScalerType type) {
+    var info = cImage.GetPixelScalerInfo(type);
+    _type = type;
+    ScaleFactorX = info.Item1;
+    ScaleFactorY = info.Item2;
   }
 }

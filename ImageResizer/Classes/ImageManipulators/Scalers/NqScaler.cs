@@ -23,25 +23,25 @@ using System.Drawing;
 using Imager;
 using Imager.Interface;
 
-namespace Classes.ImageManipulators.Scalers {
-  internal class NqScaler : AScaler {
-    private readonly NqScalerType _type;
-    private readonly NqMode _mode;
+namespace Classes.ImageManipulators.Scalers; 
 
-    #region Implementation of AScaler
-    public override cImage Apply(cImage source) => source.ApplyScaler(this._type, this._mode, default(Rectangle?));
-    public override byte ScaleFactorX { get; }
-    public override byte ScaleFactorY { get; }
-    public override string Description => ReflectionUtils.GetDescriptionForEnumValue(this._type);
+internal class NqScaler : AScaler {
+  private readonly NqScalerType _type;
+  private readonly NqMode _mode;
 
-    #endregion
+  #region Implementation of AScaler
+  public override cImage Apply(cImage source) => source.ApplyScaler(_type, _mode, default(Rectangle?));
+  public override byte ScaleFactorX { get; }
+  public override byte ScaleFactorY { get; }
+  public override string Description => ReflectionUtils.GetDescriptionForEnumValue(_type);
 
-    public NqScaler(NqScalerType type, NqMode mode) {
-      var info = cImage.GetPixelScalerInfo(type);
-      this._type = type;
-      this._mode = mode;
-      this.ScaleFactorX = info.Item1;
-      this.ScaleFactorY = info.Item2;
-    }
+  #endregion
+
+  public NqScaler(NqScalerType type, NqMode mode) {
+    var info = cImage.GetPixelScalerInfo(type);
+    _type = type;
+    _mode = mode;
+    ScaleFactorX = info.Item1;
+    ScaleFactorY = info.Item2;
   }
 }

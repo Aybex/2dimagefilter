@@ -97,7 +97,7 @@ namespace Imager {
       var scaleY = info.Item2;
       var scaler = info.Item3;
 
-      return this._RunLoop(filterRegion, scaleX, scaleY, w => scaler(w));
+      return _RunLoop(filterRegion, scaleX, scaleY, w => scaler(w));
     }
 
 #if NET45

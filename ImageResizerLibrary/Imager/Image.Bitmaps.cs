@@ -29,144 +29,145 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace Imager {
-  partial class cImage {
-    /// <summary>
-    /// Copies 32-bit blocks from source to target.
-    /// </summary>
-    /// <param name="source">The source.</param>
-    /// <param name="sourceOffset">The source offset.</param>
-    /// <param name="target">The target.</param>
-    /// <param name="targetOffset">The target offset.</param>
-    /// <param name="count">The count.</param>
+namespace Imager; 
+
+partial class cImage {
+  /// <summary>
+  /// Copies 32-bit blocks from source to target.
+  /// </summary>
+  /// <param name="source">The source.</param>
+  /// <param name="sourceOffset">The source offset.</param>
+  /// <param name="target">The target.</param>
+  /// <param name="targetOffset">The target offset.</param>
+  /// <param name="count">The count.</param>
 #if NET45
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
-    private static unsafe void _CopyBlock(int* source, int sourceOffset, int* target, int targetOffset, int count) {
-      source += sourceOffset;
-      target += targetOffset;
+  private static unsafe void _CopyBlock(int* source, int sourceOffset, int* target, int targetOffset, int count) {
+    source += sourceOffset;
+    target += targetOffset;
 
-      // copy 64-bit as long as possible
-      while (count > 1) {
-        *(long*) target = *(long*) source;
-        source += 2;
-        target += 2;
-        count -= 2;
-      }
-
-      // copy remaining 32-bit 
-      if (count > 0)
-        *target = *source;
+    // copy 64-bit as long as possible
+    while (count > 1) {
+      *(long*) target = *(long*) source;
+      source += 2;
+      target += 2;
+      count -= 2;
     }
 
-    private static unsafe void _CopyPixels(int x, int y, int width, int height, sPixel[] sourceData, int sourceStride, int sourceWidth, int sourceHeight, IntPtr targetData, int targetStride, int targetWidth, int targetHeight) {
-      fixed (sPixel* source = sourceData)
-        _CopyPixels(x, y, width, height, (int*) source, sourceWidth, (int*) targetData.ToPointer(), targetWidth, sourceStride, targetStride >> 2);
-    }
+    // copy remaining 32-bit 
+    if (count > 0)
+      *target = *source;
+  }
 
-    private static unsafe void _CopyPixels(int x, int y, int width, int height, IntPtr sourceData, int sourceStride, int sourceWidth, int sourceHeight, sPixel[] targetData, int targetStride, int targetWidth, int targetHeight) {
-      fixed (sPixel* target = targetData)
-        _CopyPixels(x, y, width, height, (int*) sourceData.ToPointer(), sourceWidth, (int*) target, targetWidth, sourceStride >> 2, targetStride);
-    }
+  private static unsafe void _CopyPixels(int x, int y, int width, int height, sPixel[] sourceData, int sourceStride, int sourceWidth, int sourceHeight, IntPtr targetData, int targetStride, int targetWidth, int targetHeight) {
+    fixed (sPixel* source = sourceData)
+      _CopyPixels(x, y, width, height, (int*) source, sourceWidth, (int*) targetData.ToPointer(), targetWidth, sourceStride, targetStride >> 2);
+  }
+
+  private static unsafe void _CopyPixels(int x, int y, int width, int height, IntPtr sourceData, int sourceStride, int sourceWidth, int sourceHeight, sPixel[] targetData, int targetStride, int targetWidth, int targetHeight) {
+    fixed (sPixel* target = targetData)
+      _CopyPixels(x, y, width, height, (int*) sourceData.ToPointer(), sourceWidth, (int*) target, targetWidth, sourceStride >> 2, targetStride);
+  }
 
 #if NET45
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
-    private static unsafe void _CopyPixels(int x, int y, int width, int height, int* source, int sourceWidth, int* target, int targetWidth, int sourceStrideNormalized, int targetStrideNormalized) {
-      if (x == 0 && targetWidth == sourceWidth && sourceStrideNormalized == targetStrideNormalized) {
-        // We can copy pixel data directly
-        Parallel.ForEach(
-          source: Partitioner.Create(y, y + height),
-          localInit: () => 0,
-          body:
-          (range, _, threadStorage) => {
-            var minY = range.Item1;
-            var maxY = range.Item2;
+  private static unsafe void _CopyPixels(int x, int y, int width, int height, int* source, int sourceWidth, int* target, int targetWidth, int sourceStrideNormalized, int targetStrideNormalized) {
+    if (x == 0 && targetWidth == sourceWidth && sourceStrideNormalized == targetStrideNormalized) {
+      // We can copy pixel data directly
+      Parallel.ForEach(
+        source: Partitioner.Create(y, y + height),
+        localInit: () => 0,
+        body:
+        (range, _, threadStorage) => {
+          var minY = range.Item1;
+          var maxY = range.Item2;
 
+          _CopyBlock(
+            source: source,
+            sourceOffset: (minY - y) * sourceStrideNormalized,
+            target: target,
+            targetOffset: minY * targetStrideNormalized,
+            count: (maxY - minY) * targetStrideNormalized
+          );
+
+          return threadStorage;
+        },
+        localFinally: _ => { }
+      );
+    } else {
+      // Unfortunately we should make some extra effort to copy the data
+      Parallel.ForEach(
+        source: Partitioner.Create(y, y + height),
+        localInit: () => 0,
+        body:
+        (range, _, threadStorage) => {
+          var minY = range.Item1;
+          var maxY = range.Item2;
+
+
+          for (var yLine = minY; yLine < maxY; yLine++) {
             _CopyBlock(
               source: source,
-              sourceOffset: (minY - y) * sourceStrideNormalized,
+              sourceOffset: (yLine - y) * sourceStrideNormalized + x,
               target: target,
-              targetOffset: minY * targetStrideNormalized,
-              count: (maxY - minY) * targetStrideNormalized
+              targetOffset: targetStrideNormalized,
+              count: width
             );
+          }
 
-            return threadStorage;
-          },
-          localFinally: _ => { }
-        );
-      } else {
-        // Unfortunately we should make some extra effort to copy the data
-        Parallel.ForEach(
-          source: Partitioner.Create(y, y + height),
-          localInit: () => 0,
-          body:
-          (range, _, threadStorage) => {
-            var minY = range.Item1;
-            var maxY = range.Item2;
+          return threadStorage;
+        },
+        localFinally: _ => { }
+      );
+    }
+  }
 
-
-            for (var yLine = minY; yLine < maxY; yLine++) {
-              _CopyBlock(
-                source: source,
-                sourceOffset: (yLine - y) * sourceStrideNormalized + x,
-                target: target,
-                targetOffset: targetStrideNormalized,
-                count: width
-              );
-            }
-
-            return threadStorage;
-          },
-          localFinally: _ => { }
-        );
-      }
+  /// <summary>
+  /// Converts this image to a <see cref="Bitmap"/> instance.
+  /// </summary>
+  /// <param name="sx">The start x.</param>
+  /// <param name="sy">The start y.</param>
+  /// <param name="width">The width.</param>
+  /// <param name="height">The height.</param>
+  /// <returns>
+  /// The <see cref="Bitmap"/> instance
+  /// </returns>
+  public Bitmap ToBitmap(int sx, int sy, int width, int height) {
+    var result = new Bitmap(width, height);
+    using (var data = result.LockForWrite()) {
+      var bitmapData = data.BitmapData;
+      _CopyPixels(sx, sy, width, height, _imageData, _width, _width, _height, bitmapData.Scan0, bitmapData.Stride, bitmapData.Width, bitmapData.Height);
     }
 
-    /// <summary>
-    /// Converts this image to a <see cref="Bitmap"/> instance.
-    /// </summary>
-    /// <param name="sx">The start x.</param>
-    /// <param name="sy">The start y.</param>
-    /// <param name="width">The width.</param>
-    /// <param name="height">The height.</param>
-    /// <returns>
-    /// The <see cref="Bitmap"/> instance
-    /// </returns>
-    public Bitmap ToBitmap(int sx, int sy, int width, int height) {
-      var result = new Bitmap(width, height);
-      using (var data = result.LockForWrite()) {
-        var bitmapData = data.BitmapData;
-        _CopyPixels(sx, sy, width, height, this._imageData, this._width, this._width, this._height, bitmapData.Scan0, bitmapData.Stride, bitmapData.Width, bitmapData.Height);
-      }
+    return result;
+  }
 
-      return result;
+  /// <summary>
+  /// Converts this image to a <see cref="Bitmap"/> instance.
+  /// </summary>
+  /// <returns>The <see cref="Bitmap"/> instance</returns>
+  public Bitmap ToBitmap() => ToBitmap(0, 0, _width, _height);
+
+  // NOTE: Bitmap objects does not support parallel read-outs blame Microsoft
+  /// <summary>
+  /// Initializes a new instance of the <see cref="cImage"/> class from a <see cref="Bitmap"/> instance.
+  /// </summary>
+  /// <param name="bitmap">The bitmap.</param>
+  public static cImage FromBitmap(Bitmap bitmap) {
+    if (bitmap == null)
+      return null;
+
+    var result = new cImage(bitmap.Width, bitmap.Height);
+
+    using (var data = bitmap.LockForRead()) {
+      var bitmapData = data.BitmapData;
+      _CopyPixels(0, 0, result._width, result._height, bitmapData.Scan0, bitmapData.Stride, bitmapData.Width, bitmapData.Height, result._imageData, result._width, result._width, result._height);
     }
 
-    /// <summary>
-    /// Converts this image to a <see cref="Bitmap"/> instance.
-    /// </summary>
-    /// <returns>The <see cref="Bitmap"/> instance</returns>
-    public Bitmap ToBitmap() => this.ToBitmap(0, 0, this._width, this._height);
-
-    // NOTE: Bitmap objects does not support parallel read-outs blame Microsoft
-    /// <summary>
-    /// Initializes a new instance of the <see cref="cImage"/> class from a <see cref="Bitmap"/> instance.
-    /// </summary>
-    /// <param name="bitmap">The bitmap.</param>
-    public static cImage FromBitmap(Bitmap bitmap) {
-      if (bitmap == null)
-        return null;
-
-      var result = new cImage(bitmap.Width, bitmap.Height);
-
-      using (var data = bitmap.LockForRead()) {
-        var bitmapData = data.BitmapData;
-        _CopyPixels(0, 0, result._width, result._height, bitmapData.Scan0, bitmapData.Stride, bitmapData.Width, bitmapData.Height, result._imageData, result._width, result._width, result._height);
-      }
-
-      return result;
-    }
+    return result;
+  }
 
 
 #if NET45
@@ -228,5 +229,4 @@ namespace Imager {
 
 #endif
 
-  }
 }

@@ -25,30 +25,30 @@ using System.Diagnostics.Contracts;
 
 using Imager;
 
-namespace Classes.ImageManipulators {
-  [Description("Color component extractors")]
-  internal class PlaneExtractor : IImageManipulator {
-    private readonly Func<cImage, cImage> _planeExtractionFunction;
+namespace Classes.ImageManipulators; 
 
-    #region Implementation of IImageManipulator
-    public bool SupportsWidth => false;
-    public bool SupportsHeight => false;
-    public bool SupportsRepetitionCount => false;
-    public bool SupportsGridCentering => false;
-    public bool ChangesResolution => false;
-    public bool SupportsThresholds => false;
-    public bool SupportsRadius => false;
-    public string Description { get; }
+[Description("Color component extractors")]
+internal class PlaneExtractor : IImageManipulator {
+  private readonly Func<cImage, cImage> _planeExtractionFunction;
 
-    #endregion
+  #region Implementation of IImageManipulator
+  public bool SupportsWidth => false;
+  public bool SupportsHeight => false;
+  public bool SupportsRepetitionCount => false;
+  public bool SupportsGridCentering => false;
+  public bool ChangesResolution => false;
+  public bool SupportsThresholds => false;
+  public bool SupportsRadius => false;
+  public string Description { get; }
 
-    public cImage Apply(cImage source) => this._planeExtractionFunction(source);
+  #endregion
 
-    public PlaneExtractor(Func<cImage, cImage> planeExtractionFunction, string description) {
-      Contract.Requires(planeExtractionFunction != null);
-      this._planeExtractionFunction = planeExtractionFunction;
-      this.Description = description;
-    }
+  public cImage Apply(cImage source) => _planeExtractionFunction(source);
 
+  public PlaneExtractor(Func<cImage, cImage> planeExtractionFunction, string description) {
+    Contract.Requires(planeExtractionFunction != null);
+    _planeExtractionFunction = planeExtractionFunction;
+    Description = description;
   }
+
 }

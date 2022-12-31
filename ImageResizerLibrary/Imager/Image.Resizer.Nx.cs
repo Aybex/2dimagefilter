@@ -30,74 +30,75 @@ using Classes;
 using Imager.Filters;
 using Imager.Interface;
 
-namespace Imager {
-  partial class cImage {
-    /// <summary>
-    /// The NQ kernel.
-    /// </summary>
-    /// <param name="pattern">The pattern.</param>
-    /// <param name="c0">The c0.</param>
-    /// <param name="c1">The c1.</param>
-    /// <param name="c2">The c2.</param>
-    /// <param name="c3">The c3.</param>
-    /// <param name="c4">The c4.</param>
-    /// <param name="c5">The c5.</param>
-    /// <param name="c6">The c6.</param>
-    /// <param name="c7">The c7.</param>
-    /// <param name="c8">The c8.</param>
-    /// <returns></returns>
-    public delegate void NqKernel(byte pattern, sPixel c0, sPixel c1, sPixel c2, sPixel c3, sPixel c4, sPixel c5, sPixel c6, sPixel c7, sPixel c8,IPixelWorker<sPixel> worker);
+namespace Imager; 
 
-    /// <summary>
-    /// The NQ filter itself
-    /// </summary>
-    public delegate void NqFilter(IPixelWorker<sPixel> worker , byte scx, byte scy, NqKernel kernel);
+partial class cImage {
+  /// <summary>
+  /// The NQ kernel.
+  /// </summary>
+  /// <param name="pattern">The pattern.</param>
+  /// <param name="c0">The c0.</param>
+  /// <param name="c1">The c1.</param>
+  /// <param name="c2">The c2.</param>
+  /// <param name="c3">The c3.</param>
+  /// <param name="c4">The c4.</param>
+  /// <param name="c5">The c5.</param>
+  /// <param name="c6">The c6.</param>
+  /// <param name="c7">The c7.</param>
+  /// <param name="c8">The c8.</param>
+  /// <returns></returns>
+  public delegate void NqKernel(byte pattern, sPixel c0, sPixel c1, sPixel c2, sPixel c3, sPixel c4, sPixel c5, sPixel c6, sPixel c7, sPixel c8,IPixelWorker<sPixel> worker);
 
-    /// <summary>
-    /// Stores all available parameterless pixel scalers.
-    /// </summary>
-    public static readonly IReadOnlyDictionary<NqScalerType, Tuple<byte, byte, NqKernel>> NQ_SCALERS = new Dictionary<NqScalerType, Tuple<byte, byte, NqKernel>> {
-      {NqScalerType.Hq2,Tuple.Create<byte, byte, NqKernel>(2,2,libHQ.Hq2xKernel)},
-      {NqScalerType.Hq2X3,Tuple.Create<byte, byte, NqKernel>(2,3,libHQ.Hq2x3Kernel)},
-      {NqScalerType.Hq2X4,Tuple.Create<byte, byte, NqKernel>(2,4,libHQ.Hq2x4Kernel)},
-      {NqScalerType.Hq3,Tuple.Create<byte, byte, NqKernel>(3,3,libHQ.Hq3xKernel)},
-      {NqScalerType.Hq4,Tuple.Create<byte, byte, NqKernel>(4,4,libHQ.Hq4xKernel)},
+  /// <summary>
+  /// The NQ filter itself
+  /// </summary>
+  public delegate void NqFilter(IPixelWorker<sPixel> worker , byte scx, byte scy, NqKernel kernel);
 
-      {NqScalerType.Lq2,Tuple.Create<byte, byte, NqKernel>(2,2,libHQ.Lq2xKernel)},
-      {NqScalerType.Lq2X3,Tuple.Create<byte, byte, NqKernel>(2,3,libHQ.Lq2x3Kernel)},
-      {NqScalerType.Lq2X4,Tuple.Create<byte, byte, NqKernel>(2,4,libHQ.Lq2x4Kernel)},
-      {NqScalerType.Lq3,Tuple.Create<byte, byte, NqKernel>(3,3,libHQ.Lq3xKernel)},
-      {NqScalerType.Lq4,Tuple.Create<byte, byte, NqKernel>(4,4,libHQ.Lq4xKernel)},
-    };
+  /// <summary>
+  /// Stores all available parameterless pixel scalers.
+  /// </summary>
+  public static readonly IReadOnlyDictionary<NqScalerType, Tuple<byte, byte, NqKernel>> NQ_SCALERS = new Dictionary<NqScalerType, Tuple<byte, byte, NqKernel>> {
+    {NqScalerType.Hq2,Tuple.Create<byte, byte, NqKernel>(2,2,libHQ.Hq2xKernel)},
+    {NqScalerType.Hq2X3,Tuple.Create<byte, byte, NqKernel>(2,3,libHQ.Hq2x3Kernel)},
+    {NqScalerType.Hq2X4,Tuple.Create<byte, byte, NqKernel>(2,4,libHQ.Hq2x4Kernel)},
+    {NqScalerType.Hq3,Tuple.Create<byte, byte, NqKernel>(3,3,libHQ.Hq3xKernel)},
+    {NqScalerType.Hq4,Tuple.Create<byte, byte, NqKernel>(4,4,libHQ.Hq4xKernel)},
 
-    /// <summary>
-    /// The different NQ modes.
-    /// </summary>
-    public static readonly IReadOnlyDictionary<NqMode, NqFilter> NQ_MODES = new Dictionary<NqMode, NqFilter> {
-      {NqMode.Normal,libHQ.ComplexFilter},
-      {NqMode.Bold,libHQ.ComplexFilterBold},
-      {NqMode.Smart,libHQ.ComplexFilterSmart},
-    };
+    {NqScalerType.Lq2,Tuple.Create<byte, byte, NqKernel>(2,2,libHQ.Lq2xKernel)},
+    {NqScalerType.Lq2X3,Tuple.Create<byte, byte, NqKernel>(2,3,libHQ.Lq2x3Kernel)},
+    {NqScalerType.Lq2X4,Tuple.Create<byte, byte, NqKernel>(2,4,libHQ.Lq2x4Kernel)},
+    {NqScalerType.Lq3,Tuple.Create<byte, byte, NqKernel>(3,3,libHQ.Lq3xKernel)},
+    {NqScalerType.Lq4,Tuple.Create<byte, byte, NqKernel>(4,4,libHQ.Lq4xKernel)},
+  };
 
-    /// <summary>
-    /// Applies the NQ pixel scaler.
-    /// </summary>
-    /// <param name="type">The type of scaler to use.</param>
-    /// <param name="mode">The mode.</param>
-    /// <param name="filterRegion">The filter region, if any.</param>
-    /// <returns>
-    /// The rescaled image.
-    /// </returns>
-    public cImage ApplyScaler(NqScalerType type, NqMode mode, Rectangle? filterRegion = null) {
-      var info = GetPixelScalerInfo(type);
-      var scaler = GetPixelScalerInfo(mode);
+  /// <summary>
+  /// The different NQ modes.
+  /// </summary>
+  public static readonly IReadOnlyDictionary<NqMode, NqFilter> NQ_MODES = new Dictionary<NqMode, NqFilter> {
+    {NqMode.Normal,libHQ.ComplexFilter},
+    {NqMode.Bold,libHQ.ComplexFilterBold},
+    {NqMode.Smart,libHQ.ComplexFilterSmart},
+  };
 
-      var scaleX = info.Item1;
-      var scaleY = info.Item2;
-      var kernel = info.Item3;
+  /// <summary>
+  /// Applies the NQ pixel scaler.
+  /// </summary>
+  /// <param name="type">The type of scaler to use.</param>
+  /// <param name="mode">The mode.</param>
+  /// <param name="filterRegion">The filter region, if any.</param>
+  /// <returns>
+  /// The rescaled image.
+  /// </returns>
+  public cImage ApplyScaler(NqScalerType type, NqMode mode, Rectangle? filterRegion = null) {
+    var info = GetPixelScalerInfo(type);
+    var scaler = GetPixelScalerInfo(mode);
 
-      return this._RunLoop(filterRegion, scaleX, scaleY, worker => scaler(worker, scaleX, scaleY, kernel));
-    }
+    var scaleX = info.Item1;
+    var scaleY = info.Item2;
+    var kernel = info.Item3;
+
+    return _RunLoop(filterRegion, scaleX, scaleY, worker => scaler(worker, scaleX, scaleY, kernel));
+  }
 
 #if NET45
 
@@ -116,39 +117,38 @@ namespace Imager {
 
 #endif
 
-    /// <summary>
-    /// Gets the pixel scaler info.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns></returns>
-    public static Tuple<byte, byte, NqKernel> GetPixelScalerInfo(NqScalerType type) 
-      => NQ_SCALERS.TryGetValue(type, out var info) 
-        ? info 
-        : throw new NotSupportedException(string.Format("NQ scaler '{0}' not supported.", type))
-    ;
+  /// <summary>
+  /// Gets the pixel scaler info.
+  /// </summary>
+  /// <param name="type">The type.</param>
+  /// <returns></returns>
+  public static Tuple<byte, byte, NqKernel> GetPixelScalerInfo(NqScalerType type) 
+    => NQ_SCALERS.TryGetValue(type, out var info) 
+      ? info 
+      : throw new NotSupportedException(string.Format("NQ scaler '{0}' not supported.", type))
+  ;
 
-    /// <summary>
-    /// Gets the pixel scaler info.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns></returns>
-    public static NqFilter GetPixelScalerInfo(NqMode type) 
-      => NQ_MODES.TryGetValue(type, out var info) 
-        ? info 
-        : throw new NotSupportedException(string.Format("NQ mode '{0}' not supported.", type))
-    ;
+  /// <summary>
+  /// Gets the pixel scaler info.
+  /// </summary>
+  /// <param name="type">The type.</param>
+  /// <returns></returns>
+  public static NqFilter GetPixelScalerInfo(NqMode type) 
+    => NQ_MODES.TryGetValue(type, out var info) 
+      ? info 
+      : throw new NotSupportedException(string.Format("NQ mode '{0}' not supported.", type))
+  ;
 
-    /// <summary>
-    /// Gets the scaler information.
-    /// </summary>
-    /// <param name="type">The type of nq scaler.</param>
-    /// <returns></returns>
-    /// <exception cref="System.NotSupportedException"></exception>
-    public static ScalerInformation GetScalerInformation(NqScalerType type) 
-      => NQ_SCALERS.TryGetValue(type, out var info) 
-        ? new ScalerInformation(ReflectionUtils.GetDisplayNameForEnumValue(type), ReflectionUtils.GetDescriptionForEnumValue(type), info.Item1, info.Item2) 
-        : throw new NotSupportedException(string.Format("NQ scaler '{0}' not supported.", type))
-    ;
+  /// <summary>
+  /// Gets the scaler information.
+  /// </summary>
+  /// <param name="type">The type of nq scaler.</param>
+  /// <returns></returns>
+  /// <exception cref="System.NotSupportedException"></exception>
+  public static ScalerInformation GetScalerInformation(NqScalerType type) 
+    => NQ_SCALERS.TryGetValue(type, out var info) 
+      ? new ScalerInformation(ReflectionUtils.GetDisplayNameForEnumValue(type), ReflectionUtils.GetDescriptionForEnumValue(type), info.Item1, info.Item2) 
+      : throw new NotSupportedException(string.Format("NQ scaler '{0}' not supported.", type))
+  ;
 
-  }
 }

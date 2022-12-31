@@ -25,42 +25,42 @@ using System.Drawing.Drawing2D;
 
 using Imager;
 
-namespace Classes.ImageManipulators {
-  [Description("GDI+ .NET internal filters")]
-  internal class Interpolator : IImageManipulator {
-    private readonly InterpolationMode _type;
+namespace Classes.ImageManipulators; 
 
-    #region Implementation of IImageManipulator
-    public bool SupportsWidth => true;
-    public bool SupportsHeight => true;
-    public bool SupportsRepetitionCount => false;
-    public bool SupportsGridCentering => false;
-    public bool SupportsRadius => false;
-    public bool ChangesResolution => true;
-    public bool SupportsThresholds => false;
+[Description("GDI+ .NET internal filters")]
+internal class Interpolator : IImageManipulator {
+  private readonly InterpolationMode _type;
 
-    public string Description {
-      get {
-        switch (this._type) {
-          case InterpolationMode.NearestNeighbor:
-            return "Nearest neighbor interpolation using the Microsoft GDI+ API.";
-          case InterpolationMode.Bilinear:
-            return "Bilinear interpolation using the Microsoft GDI+ API. No prefiltering is done. This mode is not suitable for shrinking an image below 50 percent of its original size.";
-          case InterpolationMode.Bicubic:
-            return "Bicubic interpolation using the Microsoft GDI+ API. No prefiltering is done. This mode is not suitable for shrinking an image below 25 percent of its original size.";
-          case InterpolationMode.HighQualityBilinear:
-            return "Bilinear interpolation using the Microsoft GDI+ API. Prefiltering is performed to ensure high-quality shrinking.";
-          case InterpolationMode.HighQualityBicubic:
-            return "Bicubic interpolation using the Microsoft GDI+ API. Prefiltering is performed to ensure high-quality shrinking.";
-          default:
-            return null;
-        }
+  #region Implementation of IImageManipulator
+  public bool SupportsWidth => true;
+  public bool SupportsHeight => true;
+  public bool SupportsRepetitionCount => false;
+  public bool SupportsGridCentering => false;
+  public bool SupportsRadius => false;
+  public bool ChangesResolution => true;
+  public bool SupportsThresholds => false;
+
+  public string Description {
+    get {
+      switch (_type) {
+        case InterpolationMode.NearestNeighbor:
+          return "Nearest neighbor interpolation using the Microsoft GDI+ API.";
+        case InterpolationMode.Bilinear:
+          return "Bilinear interpolation using the Microsoft GDI+ API. No prefiltering is done. This mode is not suitable for shrinking an image below 50 percent of its original size.";
+        case InterpolationMode.Bicubic:
+          return "Bicubic interpolation using the Microsoft GDI+ API. No prefiltering is done. This mode is not suitable for shrinking an image below 25 percent of its original size.";
+        case InterpolationMode.HighQualityBilinear:
+          return "Bilinear interpolation using the Microsoft GDI+ API. Prefiltering is performed to ensure high-quality shrinking.";
+        case InterpolationMode.HighQualityBicubic:
+          return "Bicubic interpolation using the Microsoft GDI+ API. Prefiltering is performed to ensure high-quality shrinking.";
+        default:
+          return null;
       }
     }
-    #endregion
-
-    public cImage Apply(cImage source, int width, int height) => source.ApplyScaler(this._type, width, height);
-    public Interpolator(InterpolationMode type) => this._type = type;
-
   }
+  #endregion
+
+  public cImage Apply(cImage source, int width, int height) => source.ApplyScaler(_type, width, height);
+  public Interpolator(InterpolationMode type) => _type = type;
+
 }

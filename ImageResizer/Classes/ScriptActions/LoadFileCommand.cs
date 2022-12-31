@@ -23,38 +23,38 @@ using System.Drawing;
 
 using Imager;
 
-namespace Classes.ScriptActions {
-  internal class LoadFileCommand : IScriptAction {
-    #region Implementation of IScriptAction
-    public bool ChangesSourceImage => true;
+namespace Classes.ScriptActions; 
 
-    public bool ChangesTargetImage => true;
-    public bool ProvidesNewGdiSource => true;
+internal class LoadFileCommand : IScriptAction {
+  #region Implementation of IScriptAction
+  public bool ChangesSourceImage => true;
 
-    public bool Execute() {
-      // releasing file handle owned by Image.FromFile by creating a copy of the original image
-      using(var image=Image.FromFile(this.FileName))
-        this.SourceImage = cImage.FromBitmap(this.GdiSource = new Bitmap(image));
+  public bool ChangesTargetImage => true;
+  public bool ProvidesNewGdiSource => true;
 
-      return true;
-    }
+  public bool Execute() {
+    // releasing file handle owned by Image.FromFile by creating a copy of the original image
+    using(var image=Image.FromFile(FileName))
+      SourceImage = cImage.FromBitmap(GdiSource = new Bitmap(image));
 
-    public cImage SourceImage { get; set; }
-
-    public cImage TargetImage {
-      get => null;
-      set { }
-    }
-
-    public Bitmap GdiSource { get; private set; }
-    #endregion
-
-    public string FileName { get; }
-
-    public LoadFileCommand(string fileName) {
-      Contract.Requires(!string.IsNullOrWhiteSpace(fileName));
-      this.FileName = fileName;
-    }
-
+    return true;
   }
+
+  public cImage SourceImage { get; set; }
+
+  public cImage TargetImage {
+    get => null;
+    set { }
+  }
+
+  public Bitmap GdiSource { get; private set; }
+  #endregion
+
+  public string FileName { get; }
+
+  public LoadFileCommand(string fileName) {
+    Contract.Requires(!string.IsNullOrWhiteSpace(fileName));
+    FileName = fileName;
+  }
+
 }

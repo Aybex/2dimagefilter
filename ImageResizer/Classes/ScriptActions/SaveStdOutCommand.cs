@@ -25,27 +25,27 @@ using System.Drawing.Imaging;
 
 using Imager;
 
-namespace Classes.ScriptActions {
-  internal class SaveStdOutCommand : IScriptAction {
-    #region Implementation of IScriptAction
-    public bool ChangesSourceImage => false;
+namespace Classes.ScriptActions; 
 
-    public bool ChangesTargetImage => false;
-    public bool ProvidesNewGdiSource => false;
+internal class SaveStdOutCommand : IScriptAction {
+  #region Implementation of IScriptAction
+  public bool ChangesSourceImage => false;
 
-    public bool Execute() {
-      using (var stream = Console.OpenStandardOutput())
-        this.TargetImage.ToBitmap().Save(stream, ImageFormat.Png);
+  public bool ChangesTargetImage => false;
+  public bool ProvidesNewGdiSource => false;
 
-      return true;
-    }
+  public bool Execute() {
+    using (var stream = Console.OpenStandardOutput())
+      TargetImage.ToBitmap().Save(stream, ImageFormat.Png);
 
-    public Bitmap GdiSource => null;
-
-    public cImage SourceImage { get; set; }
-
-    public cImage TargetImage { get; set; }
-    #endregion
-
+    return true;
   }
+
+  public Bitmap GdiSource => null;
+
+  public cImage SourceImage { get; set; }
+
+  public cImage TargetImage { get; set; }
+  #endregion
+
 }

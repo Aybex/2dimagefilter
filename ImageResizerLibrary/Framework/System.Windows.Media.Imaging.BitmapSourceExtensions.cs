@@ -20,23 +20,23 @@
 #endregion
 using System.Diagnostics.Contracts;
 using System.Drawing;
-namespace System.Windows.Media.Imaging {
-  internal static partial class BitmapSourceExtensions {
-    /// <summary>
-    /// Converts the given BitmapSource into a Bitmap.
-    /// </summary>
-    /// <param name="this">This BitmapSource.</param>
-    /// <returns>The copy of the BitmapSource as a Bitmap-Instance.</returns>
-    public static Bitmap AsBitmap(this BitmapSource @this) {
-      Contract.Requires(@this != null);
-      using (var memoryStream = new IO.MemoryStream()) {
-        var bitmapEncoder = new BmpBitmapEncoder();
-        var bitmapFrame = BitmapFrame.Create(@this);
-        bitmapEncoder.Frames.Add(bitmapFrame);
-        bitmapEncoder.Save(memoryStream);
-        using (var temp = new Bitmap(memoryStream))
-          return new Bitmap(temp);
-      }
+namespace System.Windows.Media.Imaging; 
+
+internal static partial class BitmapSourceExtensions {
+  /// <summary>
+  /// Converts the given BitmapSource into a Bitmap.
+  /// </summary>
+  /// <param name="this">This BitmapSource.</param>
+  /// <returns>The copy of the BitmapSource as a Bitmap-Instance.</returns>
+  public static Bitmap AsBitmap(this BitmapSource @this) {
+    Contract.Requires(@this != null);
+    using (var memoryStream = new IO.MemoryStream()) {
+      var bitmapEncoder = new BmpBitmapEncoder();
+      var bitmapFrame = BitmapFrame.Create(@this);
+      bitmapEncoder.Frames.Add(bitmapFrame);
+      bitmapEncoder.Save(memoryStream);
+      using (var temp = new Bitmap(memoryStream))
+        return new Bitmap(temp);
     }
   }
 }

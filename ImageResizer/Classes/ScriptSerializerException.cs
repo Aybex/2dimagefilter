@@ -21,16 +21,16 @@
 
 using System;
 
-namespace Classes {
-  internal class ScriptSerializerException : Exception {
-    public string Filename { get; }
-    public int LineNumber { get; }
-    public CLIExitCode ErrorType { get; }
+namespace Classes; 
 
-    public ScriptSerializerException(string filename, int lineNumber, CLIExitCode errorType) {
-      this.Filename = filename;
-      this.LineNumber = lineNumber;
-      this.ErrorType = errorType;
-    }
+internal class ScriptSerializerException : Exception {
+  public string Filename { get; }
+  public int LineNumber { get; }
+  public CLIExitCode ErrorType { get; }
+
+  public ScriptSerializerException(string filename, int lineNumber, CLIExitCode errorType) {
+    Filename = filename;
+    LineNumber = lineNumber;
+    ErrorType = errorType;
   }
 }

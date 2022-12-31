@@ -25,30 +25,30 @@ using System.Drawing;
 using Imager;
 using Imager.Classes;
 
-namespace Classes.ImageManipulators {
-  [Description("General purpose filters")]
-  internal class Resampler : IImageManipulator {
-    private readonly KernelType _type;
+namespace Classes.ImageManipulators; 
 
-    #region Implementation of IImageManipulator
-    public bool SupportsWidth => true;
-    public bool SupportsHeight => true;
-    public bool SupportsRepetitionCount => false;
-    public bool SupportsGridCentering => true;
-    public bool SupportsThresholds => false;
-    public bool SupportsRadius => false;
-    public bool ChangesResolution => true;
-    public string Description => ReflectionUtils.GetDescriptionForEnumValue(this._type);
+[Description("General purpose filters")]
+internal class Resampler : IImageManipulator {
+  private readonly KernelType _type;
 
-    #endregion
+  #region Implementation of IImageManipulator
+  public bool SupportsWidth => true;
+  public bool SupportsHeight => true;
+  public bool SupportsRepetitionCount => false;
+  public bool SupportsGridCentering => true;
+  public bool SupportsThresholds => false;
+  public bool SupportsRadius => false;
+  public bool ChangesResolution => true;
+  public string Description => ReflectionUtils.GetDescriptionForEnumValue(_type);
 
-    public cImage Apply(cImage source, int width, int height, bool useCenteredGrid) {
-      Contract.Requires(source != null);
-      return source.ApplyScaler(this._type, width, height, useCenteredGrid, default(Rectangle?));
-    }
+  #endregion
 
-    public Resampler(KernelType type) => this._type = type;
-    public Kernels.FixedRadiusKernelInfo GetKernelMethodInfo() => Kernels.KERNELS[this._type];
-
+  public cImage Apply(cImage source, int width, int height, bool useCenteredGrid) {
+    Contract.Requires(source != null);
+    return source.ApplyScaler(_type, width, height, useCenteredGrid, default(Rectangle?));
   }
+
+  public Resampler(KernelType type) => _type = type;
+  public Kernels.FixedRadiusKernelInfo GetKernelMethodInfo() => Kernels.KERNELS[_type];
+
 }

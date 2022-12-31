@@ -19,27 +19,27 @@
  */
 #endregion
 
-namespace Imager.Filters {
-  internal static class libBasic {
-    /// <summary>
-    /// Horizontal scanlines
-    /// </summary>
-    public static void HorizontalScanlines(IPixelWorker<sPixel> worker , float grayFactor) {
-      var pixel = worker.SourceP0P0();
-      worker.TargetP0P0( pixel);
-      var factor = grayFactor / 100f + 1f;
-      worker.TargetP0P1(pixel * factor);
-    }
+namespace Imager.Filters; 
 
-    /// <summary>
-    /// Vertical scanlines
-    /// </summary>
-    public static void VerticalScanlines(IPixelWorker<sPixel>worker , float grayFactor) {
-      var pixel = worker.SourceP0P0();
-      worker.TargetP0P0(pixel);
-      var factor = grayFactor / 100f + 1f;
-      worker.TargetP1P0( pixel * factor);
-    }
-
+internal static class libBasic {
+  /// <summary>
+  /// Horizontal scanlines
+  /// </summary>
+  public static void HorizontalScanlines(IPixelWorker<sPixel> worker , float grayFactor) {
+    var pixel = worker.SourceP0P0();
+    worker.TargetP0P0( pixel);
+    var factor = grayFactor / 100f + 1f;
+    worker.TargetP0P1(pixel * factor);
   }
+
+  /// <summary>
+  /// Vertical scanlines
+  /// </summary>
+  public static void VerticalScanlines(IPixelWorker<sPixel>worker , float grayFactor) {
+    var pixel = worker.SourceP0P0();
+    worker.TargetP0P0(pixel);
+    var factor = grayFactor / 100f + 1f;
+    worker.TargetP1P0( pixel * factor);
+  }
+
 }

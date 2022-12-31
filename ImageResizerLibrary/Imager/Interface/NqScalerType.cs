@@ -23,36 +23,36 @@ using System.ComponentModel;
 
 using Imager.Classes;
 
-namespace Imager.Interface {
-  public enum NqScalerType {
+namespace Imager.Interface; 
 
-    #region hq group
-    [EnumDisplayName("HQ 2x")]
-    [Description("Maxim Stepin's HQ 2x")]
-    Hq2,
-    [EnumDisplayName("HQ 2x3")]
-    Hq2X3,
-    [EnumDisplayName("HQ 2x4")]
-    Hq2X4,
-    [EnumDisplayName("HQ 3x")]
-    [Description("Maxim Stepin's HQ 3x")]
-    Hq3,
-    [EnumDisplayName("HQ 4x")]
-    [Description("Maxim Stepin's HQ 4x")]
-    Hq4,
-    #endregion
+public enum NqScalerType {
 
-    #region lq group
-    [EnumDisplayName("LQ 2x")]
-    Lq2,
-    [EnumDisplayName("LQ 2x3")]
-    Lq2X3,
-    [EnumDisplayName("LQ 2x4")]
-    Lq2X4,
-    [EnumDisplayName("LQ 3x")]
-    Lq3,
-    [EnumDisplayName("LQ 4x")]
-    Lq4,
-    #endregion
-  }
+  #region hq group
+  [EnumDisplayName("HQ 2x")]
+  [Description("Maxim Stepin's HQ 2x")]
+  Hq2,
+  [EnumDisplayName("HQ 2x3")]
+  Hq2X3,
+  [EnumDisplayName("HQ 2x4")]
+  Hq2X4,
+  [EnumDisplayName("HQ 3x")]
+  [Description("Maxim Stepin's HQ 3x")]
+  Hq3,
+  [EnumDisplayName("HQ 4x")]
+  [Description("Maxim Stepin's HQ 4x")]
+  Hq4,
+  #endregion
+
+  #region lq group
+  [EnumDisplayName("LQ 2x")]
+  Lq2,
+  [EnumDisplayName("LQ 2x3")]
+  Lq2X3,
+  [EnumDisplayName("LQ 2x4")]
+  Lq2X4,
+  [EnumDisplayName("LQ 3x")]
+  Lq3,
+  [EnumDisplayName("LQ 4x")]
+  Lq4,
+  #endregion
 }

@@ -33,8 +33,8 @@ namespace Imager {
       var startX = filterRegion == null ? 0 : Math.Max(0, filterRegion.Value.Left);
       var startY = filterRegion == null ? 0 : Math.Max(0, filterRegion.Value.Top);
 
-      var endX = filterRegion == null ? this.Width : Math.Min(this.Width, filterRegion.Value.Right);
-      var endY = filterRegion == null ? this.Height : Math.Min(this.Height, filterRegion.Value.Bottom);
+      var endX = filterRegion == null ? Width : Math.Min(Width, filterRegion.Value.Right);
+      var endY = filterRegion == null ? Height : Math.Min(Height, filterRegion.Value.Bottom);
 
       var width = endX - startX;
 
@@ -50,14 +50,14 @@ namespace Imager {
           var targetY = (threadSrcMinY - startY) * scaleY;
           for (var sourceY = threadSrcMinY; sourceY < threadSrcMaxY;++sourceY) {
             var worker=new PixelWorker<sPixel>(
-              i=>this.GetImageData()[i],
+              i=>GetImageData()[i],
               startX,
               sourceY, 
-              this._width, 
-              this._height,
-              this._width,  
-              this._horizontalOutOfBoundsHandler,
-              this._verticalOutOfBoundsHandler, 
+              _width, 
+              _height,
+              _width,  
+              _horizontalOutOfBoundsHandler,
+              _verticalOutOfBoundsHandler, 
               (i,c)=>result.GetImageData()[i]=c,
               0, 
               targetY, 

@@ -22,11 +22,11 @@
 using System;
 using System.ComponentModel;
 
-namespace Imager.Classes {
-  [AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
-  public class EnumDisplayNameAttribute : DisplayNameAttribute {
-    public EnumDisplayNameAttribute(string name)
-      : base(name) {
-    }
+namespace Imager.Classes; 
+
+[AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
+public class EnumDisplayNameAttribute : DisplayNameAttribute {
+  public EnumDisplayNameAttribute(string name)
+    : base(name) {
   }
 }

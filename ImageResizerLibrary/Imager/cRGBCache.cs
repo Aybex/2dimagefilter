@@ -21,30 +21,31 @@
 
 using System;
 using dword = System.UInt32;
-namespace Imager {
+namespace Imager; 
+
+/// <summary>
+/// A little cache that holds calculation results based on the three color components red, green and blue.
+/// </summary>
+public class cRGBCache {
+  private readonly ushort[] _valueCache = new ushort[256 * 256 * 256];
+
   /// <summary>
-  /// A little cache that holds calculation results based on the three color components red, green and blue.
+  /// Gets a value directly from the cache or first calculates that value and writes it the cache.
   /// </summary>
-  public class cRGBCache {
-    private readonly ushort[] _valueCache = new ushort[256 * 256 * 256];
+  /// <param name="key">The 32-bit color code.</param>
+  /// <param name="factory">The factory that would calculate a result if it's not already in the cache.</param>
+  /// <returns>The calculation result.</returns>
+  public unsafe byte GetOrAdd(dword key, Func<dword, byte> factory) {
+    fixed (ushort* ptr = _valueCache) {
+      var result = ptr[key];
+      if (result > 255)
+        return (byte) (result & 255);
 
-    /// <summary>
-    /// Gets a value directly from the cache or first calculates that value and writes it the cache.
-    /// </summary>
-    /// <param name="key">The 32-bit color code.</param>
-    /// <param name="factory">The factory that would calculate a result if it's not already in the cache.</param>
-    /// <returns>The calculation result.</returns>
-    public unsafe byte GetOrAdd(dword key, Func<dword, byte> factory) {
-      fixed (ushort* ptr = this._valueCache) {
-        var result = ptr[key];
-        if (result > 255)
-          return (byte) (result & 255);
-
-        result = factory(key);
-        ptr[key] = (ushort) (result | 256);
-        System.Threading.Thread.MemoryBarrier();
-        return (byte) result;
-      }
+      result = factory(key);
+      ptr[key] = (ushort) (result | 256);
+      System.Threading.Thread.MemoryBarrier();
+      return (byte) result;
     }
-  } // end class
-} // end namespace
+  }
+} // end class
+// end namespace

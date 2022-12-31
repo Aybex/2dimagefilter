@@ -18,10 +18,10 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #endregion
-namespace Imager.Interface {
-  public enum NqMode {
-    Normal,
-    Bold,
-    Smart
-  }
+namespace Imager.Interface; 
+
+public enum NqMode {
+  Normal,
+  Bold,
+  Smart
 }

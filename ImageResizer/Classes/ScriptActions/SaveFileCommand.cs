@@ -25,36 +25,36 @@ using System.Drawing;
 
 using Imager;
 
-namespace Classes.ScriptActions {
-  internal class SaveFileCommand : IScriptAction {
-    #region Implementation of IScriptAction
-    public bool ChangesSourceImage => false;
+namespace Classes.ScriptActions; 
 
-    public bool ChangesTargetImage => false;
-    public bool ProvidesNewGdiSource => false;
+internal class SaveFileCommand : IScriptAction {
+  #region Implementation of IScriptAction
+  public bool ChangesSourceImage => false;
 
-    public bool Execute() {
-      var result = CLI.SaveHelper(this.FileName, this.TargetImage.ToBitmap());
-      if (result == CLIExitCode.NothingToSave)
-        throw new NullReferenceException("Nothing to save");
-      if (result == CLIExitCode.JpegNotSupportedOnThisPlatform)
-        throw new InvalidOperationException("Jpeg not supported");
+  public bool ChangesTargetImage => false;
+  public bool ProvidesNewGdiSource => false;
 
-      return result == CLIExitCode.OK;
-    }
+  public bool Execute() {
+    var result = CLI.SaveHelper(FileName, TargetImage.ToBitmap());
+    if (result == CLIExitCode.NothingToSave)
+      throw new NullReferenceException("Nothing to save");
+    if (result == CLIExitCode.JpegNotSupportedOnThisPlatform)
+      throw new InvalidOperationException("Jpeg not supported");
 
-    public Bitmap GdiSource => null;
+    return result == CLIExitCode.OK;
+  }
 
-    public cImage SourceImage { get; set; }
+  public Bitmap GdiSource => null;
 
-    public cImage TargetImage { get; set; }
-    #endregion
+  public cImage SourceImage { get; set; }
 
-    public string FileName { get; }
+  public cImage TargetImage { get; set; }
+  #endregion
 
-    public SaveFileCommand(string fileName) {
-      Contract.Requires(!string.IsNullOrWhiteSpace(fileName));
-      this.FileName = fileName;
-    }
+  public string FileName { get; }
+
+  public SaveFileCommand(string fileName) {
+    Contract.Requires(!string.IsNullOrWhiteSpace(fileName));
+    FileName = fileName;
   }
 }

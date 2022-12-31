@@ -29,43 +29,44 @@ using Classes;
 using Imager.Filters;
 using Imager.Interface;
 
-namespace Imager {
-  partial class cImage {
-    /// <summary>
-    /// The XBR filter itself
-    /// </summary>
-    /// <param name="worker">The worker.</param>
-    /// <param name="allowAlphaBlending">if set to <c>true</c> [allow alpha blending].</param>
-    public delegate void XbrFilter(IPixelWorker<sPixel> worker , bool allowAlphaBlending);
+namespace Imager; 
 
-    /// <summary>
-    /// Stores all available parameterless pixel scalers.
-    /// </summary>
-    public static readonly IReadOnlyDictionary<XbrScalerType, Tuple<byte, byte, XbrFilter>> XBR_SCALERS = new Dictionary<XbrScalerType, Tuple<byte, byte, XbrFilter>> {
-      {XbrScalerType.Xbr2, Tuple.Create<byte, byte, XbrFilter>(2, 2, libXBR.Xbr2X)},
-      {XbrScalerType.Xbr3, Tuple.Create<byte, byte, XbrFilter>(3, 3, (worker, a) => libXBR.Xbr3X(worker, a, true))},
-      {XbrScalerType.Xbr3Modified, Tuple.Create<byte, byte, XbrFilter>(3, 3, (worker, a) => libXBR.Xbr3X(worker, a, false))},
-      {XbrScalerType.Xbr4, Tuple.Create<byte, byte, XbrFilter>(4, 4, libXBR.Xbr4X)},
-      {XbrScalerType.Xbr5, Tuple.Create<byte, byte, XbrFilter>(5, 5, (worker, a) => libXBR.Xbr5X(worker))},
-    };
+partial class cImage {
+  /// <summary>
+  /// The XBR filter itself
+  /// </summary>
+  /// <param name="worker">The worker.</param>
+  /// <param name="allowAlphaBlending">if set to <c>true</c> [allow alpha blending].</param>
+  public delegate void XbrFilter(IPixelWorker<sPixel> worker , bool allowAlphaBlending);
 
-    /// <summary>
-    /// Applies the XBR pixel scaler.
-    /// </summary>
-    /// <param name="type">The type of scaler to use.</param>
-    /// <param name="allowAlphaBlending">if set to <c>true</c> [allow alpha blending].</param>
-    /// <param name="filterRegion">The filter region, if any.</param>
-    /// <returns>
-    /// The rescaled image.
-    /// </returns>
-    public cImage ApplyScaler(XbrScalerType type, bool allowAlphaBlending, Rectangle? filterRegion = null) {
-      var info = GetPixelScalerInfo(type);
-      var scaleX = info.Item1;
-      var scaleY = info.Item2;
-      var scaler = info.Item3;
+  /// <summary>
+  /// Stores all available parameterless pixel scalers.
+  /// </summary>
+  public static readonly IReadOnlyDictionary<XbrScalerType, Tuple<byte, byte, XbrFilter>> XBR_SCALERS = new Dictionary<XbrScalerType, Tuple<byte, byte, XbrFilter>> {
+    {XbrScalerType.Xbr2, Tuple.Create<byte, byte, XbrFilter>(2, 2, libXBR.Xbr2X)},
+    {XbrScalerType.Xbr3, Tuple.Create<byte, byte, XbrFilter>(3, 3, (worker, a) => libXBR.Xbr3X(worker, a, true))},
+    {XbrScalerType.Xbr3Modified, Tuple.Create<byte, byte, XbrFilter>(3, 3, (worker, a) => libXBR.Xbr3X(worker, a, false))},
+    {XbrScalerType.Xbr4, Tuple.Create<byte, byte, XbrFilter>(4, 4, libXBR.Xbr4X)},
+    {XbrScalerType.Xbr5, Tuple.Create<byte, byte, XbrFilter>(5, 5, (worker, a) => libXBR.Xbr5X(worker))},
+  };
 
-      return this._RunLoop(filterRegion, scaleX, scaleY, worker => scaler(worker, allowAlphaBlending));
-    }
+  /// <summary>
+  /// Applies the XBR pixel scaler.
+  /// </summary>
+  /// <param name="type">The type of scaler to use.</param>
+  /// <param name="allowAlphaBlending">if set to <c>true</c> [allow alpha blending].</param>
+  /// <param name="filterRegion">The filter region, if any.</param>
+  /// <returns>
+  /// The rescaled image.
+  /// </returns>
+  public cImage ApplyScaler(XbrScalerType type, bool allowAlphaBlending, Rectangle? filterRegion = null) {
+    var info = GetPixelScalerInfo(type);
+    var scaleX = info.Item1;
+    var scaleY = info.Item2;
+    var scaler = info.Item3;
+
+    return _RunLoop(filterRegion, scaleX, scaleY, worker => scaler(worker, allowAlphaBlending));
+  }
 
 #if NET45
 
@@ -84,28 +85,27 @@ namespace Imager {
 
 #endif
 
-    /// <summary>
-    /// Gets the pixel scaler info.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns></returns>
-    public static Tuple<byte, byte, XbrFilter> GetPixelScalerInfo(XbrScalerType type) 
-      => XBR_SCALERS.TryGetValue(type, out var info) 
-        ? info 
-        : throw new NotSupportedException(string.Format("XBR scaler '{0}' not supported.", type))
-    ;
+  /// <summary>
+  /// Gets the pixel scaler info.
+  /// </summary>
+  /// <param name="type">The type.</param>
+  /// <returns></returns>
+  public static Tuple<byte, byte, XbrFilter> GetPixelScalerInfo(XbrScalerType type) 
+    => XBR_SCALERS.TryGetValue(type, out var info) 
+      ? info 
+      : throw new NotSupportedException(string.Format("XBR scaler '{0}' not supported.", type))
+  ;
 
-    /// <summary>
-    /// Gets the scaler information.
-    /// </summary>
-    /// <param name="type">The type of XBR scaler.</param>
-    /// <returns></returns>
-    /// <exception cref="System.NotSupportedException"></exception>
-    public static ScalerInformation GetScalerInformation(XbrScalerType type) 
-      => XBR_SCALERS.TryGetValue(type, out var info) 
-        ? new ScalerInformation(ReflectionUtils.GetDisplayNameForEnumValue(type), ReflectionUtils.GetDescriptionForEnumValue(type), info.Item1, info.Item2) 
-        : throw new NotSupportedException(string.Format("XBR scaler '{0}' not supported.", type))
-    ;
+  /// <summary>
+  /// Gets the scaler information.
+  /// </summary>
+  /// <param name="type">The type of XBR scaler.</param>
+  /// <returns></returns>
+  /// <exception cref="System.NotSupportedException"></exception>
+  public static ScalerInformation GetScalerInformation(XbrScalerType type) 
+    => XBR_SCALERS.TryGetValue(type, out var info) 
+      ? new ScalerInformation(ReflectionUtils.GetDisplayNameForEnumValue(type), ReflectionUtils.GetDescriptionForEnumValue(type), info.Item1, info.Item2) 
+      : throw new NotSupportedException(string.Format("XBR scaler '{0}' not supported.", type))
+  ;
 
-  }
 }

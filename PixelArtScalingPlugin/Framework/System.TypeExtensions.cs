@@ -19,19 +19,19 @@
 */
 #endregion
 
-namespace System {
-  internal static partial class TypeExtensions {
-    /// <summary>
-    /// Gets the assembly attribute.
-    /// </summary>
-    /// <typeparam name="TAttribute">The type of the attribute.</typeparam>
-    /// <param name="this">This type.</param>
-    /// <param name="inherit">if set to <c>true</c> inherited attributes would also be returned; otherwise, not.</param>
-    /// <param name="index">The index to use if multiple attributes were found of that kind.</param>
-    /// <returns>The given attribute instance.</returns>
-    public static TAttribute GetAssemblyAttribute<TAttribute>(this Type @this, bool inherit = false, int index = 0) 
-      => (TAttribute)@this.Assembly.GetCustomAttributes(typeof(TAttribute), inherit)[index]
-    ;
+namespace System; 
 
-  }
+internal static partial class TypeExtensions {
+  /// <summary>
+  /// Gets the assembly attribute.
+  /// </summary>
+  /// <typeparam name="TAttribute">The type of the attribute.</typeparam>
+  /// <param name="this">This type.</param>
+  /// <param name="inherit">if set to <c>true</c> inherited attributes would also be returned; otherwise, not.</param>
+  /// <param name="index">The index to use if multiple attributes were found of that kind.</param>
+  /// <returns>The given attribute instance.</returns>
+  public static TAttribute GetAssemblyAttribute<TAttribute>(this Type @this, bool inherit = false, int index = 0) 
+    => (TAttribute)@this.Assembly.GetCustomAttributes(typeof(TAttribute), inherit)[index]
+  ;
+
 }

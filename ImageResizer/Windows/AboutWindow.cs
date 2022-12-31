@@ -28,27 +28,27 @@ using Classes;
 
 using ImageResizer.Properties;
 
-namespace ImageResizer.Windows {
-  public partial class AboutWindow : Form {
-    public AboutWindow() {
-      InitializeComponent();
+namespace ImageResizer.Windows; 
 
-      var link = new LinkLabel.Link { LinkData = Resources.urlProject };
-      this.llaHomepage.Links.Add(link);
+public partial class AboutWindow : Form {
+  public AboutWindow() {
+    InitializeComponent();
 
-      this.lblInfo.Text = this.lblInfo.Text
+    var link = new LinkLabel.Link { LinkData = Resources.urlProject };
+    llaHomepage.Links.Add(link);
+
+    lblInfo.Text = lblInfo.Text
         .Replace("{appname}", ReflectionUtils.GetEntryAssemblyAttribute<AssemblyProductAttribute>(p => p.Product).ToString())
         .Replace("{version}", ReflectionUtils.GetEntryAssemblyAttribute<AssemblyFileVersionAttribute>(v => v.Version).ToString())
         .Replace("{copyright}", ReflectionUtils.GetEntryAssemblyAttribute<AssemblyCopyrightAttribute>(c => c.Copyright).ToString())
       ;
-    }
+  }
 
-    private void butOK_Click(object sender, EventArgs e) {
-      this.Close();
-    }
+  private void butOK_Click(object sender, EventArgs e) {
+    Close();
+  }
 
-    private void llaHomepage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-      Process.Start(e.Link.LinkData as string);
-    }
+  private void llaHomepage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+    Process.Start(e.Link.LinkData as string);
   }
 }

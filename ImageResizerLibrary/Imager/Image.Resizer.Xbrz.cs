@@ -67,11 +67,11 @@ namespace Imager {
       var scaler = info.Item3;
 
       if (filterRegion == null)
-        filterRegion = new Rectangle(0, 0, this.Width, this.Height);
+        filterRegion = new Rectangle(0, 0, Width, Height);
 
-      var result = new cImage(this.Width * scaleX, this.Height * scaleY);
+      var result = new cImage(Width * scaleX, Height * scaleY);
       // TODO: generic pixel loop
-      scaler(this.GetImageData(), result.GetImageData(), this.Width, this.Height, filterRegion.Value.Left, filterRegion.Value.Top, filterRegion.Value.Right, filterRegion.Value.Bottom);
+      scaler(GetImageData(), result.GetImageData(), Width, Height, filterRegion.Value.Left, filterRegion.Value.Top, filterRegion.Value.Right, filterRegion.Value.Bottom);
       return result;
     }
 

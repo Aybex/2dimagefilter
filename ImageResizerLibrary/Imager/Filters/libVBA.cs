@@ -19,48 +19,49 @@
  */
 #endregion
 
-namespace Imager.Filters {
-  internal static class libVBA {
-    /// <summary>
-    /// Bilinear Plus Original
-    /// </summary>
-    public static void BilinearPlusOriginal(IPixelWorker<sPixel>worker ) {
-      var c00 = worker.SourceP0P0();
-      var c01 = worker.SourceP1P0();
-      var c10 = worker.SourceP0P1();
-      var c11 = worker.SourceP1P1();
+namespace Imager.Filters; 
 
-      var e00 = sPixel.Interpolate(c00, c01, c10, 5, 2, 1);
-      var e01 = sPixel.Interpolate(c00, c01);
-      var e10 = sPixel.Interpolate(c00, c10);
-      var e11 = sPixel.Interpolate(c00, c01, c10, c11);
+internal static class libVBA {
+  /// <summary>
+  /// Bilinear Plus Original
+  /// </summary>
+  public static void BilinearPlusOriginal(IPixelWorker<sPixel>worker ) {
+    var c00 = worker.SourceP0P0();
+    var c01 = worker.SourceP1P0();
+    var c10 = worker.SourceP0P1();
+    var c11 = worker.SourceP1P1();
 
-      worker.TargetP0P0(e00);
-      worker.TargetP1P0(e01);
-      worker.TargetP0P1(e10);
-      worker.TargetP1P1(e11);
-    }
+    var e00 = sPixel.Interpolate(c00, c01, c10, 5, 2, 1);
+    var e01 = sPixel.Interpolate(c00, c01);
+    var e10 = sPixel.Interpolate(c00, c10);
+    var e11 = sPixel.Interpolate(c00, c01, c10, c11);
 
-    /// <summary>
-    /// Bilinear Plus
-    /// </summary>
-    public static void BilinearPlus(IPixelWorker<sPixel>worker ) {
-      var c00 = worker.SourceP0P0();
-      var c01 = worker.SourceP1P0();
-      var c10 = worker.SourceP0P1();
-      var c11 = worker.SourceP1P1();
+    worker.TargetP0P0(e00);
+    worker.TargetP1P0(e01);
+    worker.TargetP0P1(e10);
+    worker.TargetP1P1(e11);
+  }
 
-      const float gamma = 14f / 16f;
+  /// <summary>
+  /// Bilinear Plus
+  /// </summary>
+  public static void BilinearPlus(IPixelWorker<sPixel>worker ) {
+    var c00 = worker.SourceP0P0();
+    var c01 = worker.SourceP1P0();
+    var c10 = worker.SourceP0P1();
+    var c11 = worker.SourceP1P1();
 
-      var e00 = sPixel.Interpolate(c00, c01, c10, 10, 2, 2) * gamma;
-      var e01 = sPixel.Interpolate(c00, c01);
-      var e10 = sPixel.Interpolate(c00, c10);
-      var e11 = sPixel.Interpolate(c00, c01, c10, c11);
+    const float gamma = 14f / 16f;
 
-      worker.TargetP0P0(e00);
-      worker.TargetP1P0(e01);
-      worker.TargetP0P1(e10);
-      worker.TargetP1P1(e11);
-    }
-  } // end class
-} // end namespace
+    var e00 = sPixel.Interpolate(c00, c01, c10, 10, 2, 2) * gamma;
+    var e01 = sPixel.Interpolate(c00, c01);
+    var e10 = sPixel.Interpolate(c00, c10);
+    var e11 = sPixel.Interpolate(c00, c01, c10, c11);
+
+    worker.TargetP0P0(e00);
+    worker.TargetP1P0(e01);
+    worker.TargetP0P1(e10);
+    worker.TargetP1P1(e11);
+  }
+} // end class
+// end namespace

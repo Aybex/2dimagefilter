@@ -19,55 +19,55 @@
 */
 #endregion
 
-namespace System.Windows.Media.Imaging {
-  internal static partial class WriteableBitmapExtensions {
+namespace System.Windows.Media.Imaging; 
+
+internal static partial class WriteableBitmapExtensions {
 
 
-    #region nested types
+  #region nested types
 
-    /// <summary>
-    /// A bitmapdata that automatically gets properly disposed.
-    /// </summary>
-    public interface IDisposableWriteableBitmap : IDisposable {
-      WriteableBitmap Bitmap { get; }
+  /// <summary>
+  /// A bitmapdata that automatically gets properly disposed.
+  /// </summary>
+  public interface IDisposableWriteableBitmap : IDisposable {
+    WriteableBitmap Bitmap { get; }
+  }
+
+  /// <summary>
+  /// A bitmapdata that automatically gets properly disposed.
+  /// </summary>
+  private class DisposableWriteableBitmap : IDisposableWriteableBitmap {
+
+    private bool _isDisposed;
+
+    public DisposableWriteableBitmap(WriteableBitmap source) {
+      Bitmap = source;
+      source.Lock();
     }
 
-    /// <summary>
-    /// A bitmapdata that automatically gets properly disposed.
-    /// </summary>
-    private class DisposableWriteableBitmap : IDisposableWriteableBitmap {
+    #region Implementation of IDisposable
 
-      private bool _isDisposed;
+    ~DisposableWriteableBitmap() => Dispose();
 
-      public DisposableWriteableBitmap(WriteableBitmap source) {
-        this.Bitmap = source;
-        source.Lock();
-      }
+    public void Dispose() {
+      if (_isDisposed)
+        return;
 
-      #region Implementation of IDisposable
-
-      ~DisposableWriteableBitmap() => this.Dispose();
-
-      public void Dispose() {
-        if (this._isDisposed)
-          return;
-
-        this._isDisposed = true;
-        this.Bitmap.Unlock();
-      }
-
-      #endregion
-
-      #region Implementation of IDisposableBitmapData
-
-      public WriteableBitmap Bitmap { get; }
-
-      #endregion
+      _isDisposed = true;
+      Bitmap.Unlock();
     }
 
     #endregion
 
-    public static IDisposableWriteableBitmap LockData(this WriteableBitmap @this)=>new DisposableWriteableBitmap(@this);
+    #region Implementation of IDisposableBitmapData
 
+    public WriteableBitmap Bitmap { get; }
+
+    #endregion
   }
+
+  #endregion
+
+  public static IDisposableWriteableBitmap LockData(this WriteableBitmap @this)=>new DisposableWriteableBitmap(@this);
+
 }

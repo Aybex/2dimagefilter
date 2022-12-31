@@ -23,17 +23,17 @@ using System.Drawing;
 
 using Imager;
 
-namespace Classes {
-  internal interface IScriptAction {
+namespace Classes; 
 
-    bool ChangesSourceImage { get; }
-    bool ChangesTargetImage { get; }
-    bool ProvidesNewGdiSource { get; }
+internal interface IScriptAction {
 
-    bool Execute();
-    Bitmap GdiSource { get; }
+  bool ChangesSourceImage { get; }
+  bool ChangesTargetImage { get; }
+  bool ProvidesNewGdiSource { get; }
 
-    cImage SourceImage { get; set; }
-    cImage TargetImage { get; set; }
-  }
+  bool Execute();
+  Bitmap GdiSource { get; }
+
+  cImage SourceImage { get; set; }
+  cImage TargetImage { get; set; }
 }

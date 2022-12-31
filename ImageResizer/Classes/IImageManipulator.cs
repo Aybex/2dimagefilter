@@ -18,15 +18,15 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #endregion
-namespace Classes {
-  internal interface IImageManipulator {
-    bool SupportsWidth { get; }
-    bool SupportsHeight { get; }
-    bool SupportsRepetitionCount { get; }
-    bool SupportsGridCentering { get; }
-    bool SupportsThresholds { get; }
-    bool SupportsRadius { get; }
-    bool ChangesResolution { get; }
-    string Description { get; }
-  }
+namespace Classes; 
+
+internal interface IImageManipulator {
+  bool SupportsWidth { get; }
+  bool SupportsHeight { get; }
+  bool SupportsRepetitionCount { get; }
+  bool SupportsGridCentering { get; }
+  bool SupportsThresholds { get; }
+  bool SupportsRadius { get; }
+  bool ChangesResolution { get; }
+  string Description { get; }
 }

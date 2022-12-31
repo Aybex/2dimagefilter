@@ -25,70 +25,70 @@ using System;
 using System.Drawing;
 using System.Linq;
 
-namespace PixelArtScaling {
-  class SupportedManipulators {
+namespace PixelArtScaling; 
 
-    internal delegate cImage ImageManipulator(cImage sourceImage, Rectangle sourceRectangle);
+class SupportedManipulators {
 
-    public static readonly Tuple<string, ScalerInformation, ImageManipulator>[] Manipulators =
-      new Tuple<string, ScalerInformation, ImageManipulator>[0]
+  internal delegate cImage ImageManipulator(cImage sourceImage, Rectangle sourceRectangle);
 
-    #region add pixel resizer
+  public static readonly Tuple<string, ScalerInformation, ImageManipulator>[] Manipulators =
+    new Tuple<string, ScalerInformation, ImageManipulator>[0]
 
-.Concat(
-          from p in ReflectionUtils.GetEnumValues<PixelScalerType>()
-          select
-            Tuple.Create(
-              ReflectionUtils.GetDisplayNameForEnumValue(p),
-              cImage.GetScalerInformation(p),
-              new ImageManipulator((i, r) => i.ApplyScaler(p, r)))
-        )
-    #endregion
+      #region add pixel resizer
 
-    #region add xbr resizer
+      .Concat(
+        from p in ReflectionUtils.GetEnumValues<PixelScalerType>()
+        select
+          Tuple.Create(
+            ReflectionUtils.GetDisplayNameForEnumValue(p),
+            cImage.GetScalerInformation(p),
+            new ImageManipulator((i, r) => i.ApplyScaler(p, r)))
+      )
+      #endregion
 
-.Concat(
-          from p in ReflectionUtils.GetEnumValues<XbrScalerType>()
-          select
-            Tuple.Create(
-              ReflectionUtils.GetDisplayNameForEnumValue(p) + " <NoBlend>",
-              cImage.GetScalerInformation(p),
-              new ImageManipulator((i, r) => i.ApplyScaler(p, false, r)))
-        )
-        .Concat(
-          from p in ReflectionUtils.GetEnumValues<XbrScalerType>()
-          select
-            Tuple.Create(
-              ReflectionUtils.GetDisplayNameForEnumValue(p),
-              cImage.GetScalerInformation(p),
-              new ImageManipulator((i, r) => i.ApplyScaler(p, true, r)))
-        )
-    #endregion
-    #region xbrz
-.Concat(
-          from p in ReflectionUtils.GetEnumValues<XbrzScalerType>()
-          select
-            Tuple.Create(
-              ReflectionUtils.GetDisplayNameForEnumValue(p),
-              cImage.GetScalerInformation(p),
-              new ImageManipulator((i, r) => i.ApplyScaler(p, r)))
-        )
-    #endregion
+      #region add xbr resizer
 
-    #region add nq resizer
+      .Concat(
+        from p in ReflectionUtils.GetEnumValues<XbrScalerType>()
+        select
+          Tuple.Create(
+            ReflectionUtils.GetDisplayNameForEnumValue(p) + " <NoBlend>",
+            cImage.GetScalerInformation(p),
+            new ImageManipulator((i, r) => i.ApplyScaler(p, false, r)))
+      )
+      .Concat(
+        from p in ReflectionUtils.GetEnumValues<XbrScalerType>()
+        select
+          Tuple.Create(
+            ReflectionUtils.GetDisplayNameForEnumValue(p),
+            cImage.GetScalerInformation(p),
+            new ImageManipulator((i, r) => i.ApplyScaler(p, true, r)))
+      )
+      #endregion
+      #region xbrz
+      .Concat(
+        from p in ReflectionUtils.GetEnumValues<XbrzScalerType>()
+        select
+          Tuple.Create(
+            ReflectionUtils.GetDisplayNameForEnumValue(p),
+            cImage.GetScalerInformation(p),
+            new ImageManipulator((i, r) => i.ApplyScaler(p, r)))
+      )
+      #endregion
 
-.Concat(
-          from p in ReflectionUtils.GetEnumValues<NqScalerType>()
-          from m in ReflectionUtils.GetEnumValues<NqMode>()
-          select
-            Tuple.Create(
-              ReflectionUtils.GetDisplayNameForEnumValue(p) +
-              (m == NqMode.Normal ? string.Empty : " " + ReflectionUtils.GetDisplayNameForEnumValue(m)),
-              cImage.GetScalerInformation(p),
-              new ImageManipulator((i, r) => i.ApplyScaler(p, m, r)))
-        )
-    #endregion
+      #region add nq resizer
 
-.ToArray();
-  }
+      .Concat(
+        from p in ReflectionUtils.GetEnumValues<NqScalerType>()
+        from m in ReflectionUtils.GetEnumValues<NqMode>()
+        select
+          Tuple.Create(
+            ReflectionUtils.GetDisplayNameForEnumValue(p) +
+            (m == NqMode.Normal ? string.Empty : " " + ReflectionUtils.GetDisplayNameForEnumValue(m)),
+            cImage.GetScalerInformation(p),
+            new ImageManipulator((i, r) => i.ApplyScaler(p, m, r)))
+      )
+      #endregion
+
+      .ToArray();
 }

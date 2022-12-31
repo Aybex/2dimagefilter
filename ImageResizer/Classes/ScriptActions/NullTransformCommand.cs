@@ -23,23 +23,23 @@ using System.Drawing;
 
 using Imager;
 
-namespace Classes.ScriptActions {
-  internal class NullTransformCommand : IScriptAction {
-    #region Implementation of IScriptAction
-    public bool ChangesSourceImage => false;
-    public bool ChangesTargetImage => true;
-    public bool ProvidesNewGdiSource => false;
+namespace Classes.ScriptActions; 
 
-    public bool Execute() {
-      this.TargetImage = this.SourceImage;
-      return true;
-    }
+internal class NullTransformCommand : IScriptAction {
+  #region Implementation of IScriptAction
+  public bool ChangesSourceImage => false;
+  public bool ChangesTargetImage => true;
+  public bool ProvidesNewGdiSource => false;
 
-    public Bitmap GdiSource => null;
-
-    public cImage SourceImage { get; set; }
-
-    public cImage TargetImage { get; set; }
-    #endregion
+  public bool Execute() {
+    TargetImage = SourceImage;
+    return true;
   }
+
+  public Bitmap GdiSource => null;
+
+  public cImage SourceImage { get; set; }
+
+  public cImage TargetImage { get; set; }
+  #endregion
 }

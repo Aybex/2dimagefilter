@@ -19,57 +19,58 @@
  */
 #endregion
 
-namespace Imager.Filters {
-  internal static class libDES {
-    /// <summary>
-    /// DES filters from FNES
-    /// </summary>
-    public static void DES(IPixelWorker<sPixel> worker) {
-      var n = worker.SourceP0M1();
-      var w = worker.SourceM1P0();
-      var c = worker.SourceP0P0();
-      var e = worker.SourceP1P0();
-      var s = worker.SourceP0P1();
+namespace Imager.Filters; 
+
+internal static class libDES {
+  /// <summary>
+  /// DES filters from FNES
+  /// </summary>
+  public static void DES(IPixelWorker<sPixel> worker) {
+    var n = worker.SourceP0M1();
+    var w = worker.SourceM1P0();
+    var c = worker.SourceP0P0();
+    var e = worker.SourceP1P0();
+    var s = worker.SourceP0P1();
 
 
-      var p0 = w.IsLike(n) && n.IsNotLike(e) && w.IsNotLike(s) ? w : c;
-      var p1 = n.IsLike(e) && n.IsNotLike(w) && e.IsNotLike(s) ? e : c;
-      var p2 = w.IsLike(s) && w.IsNotLike(n) && s.IsNotLike(e) ? w : c;
-      var p3 = s.IsLike(e) && w.IsNotLike(s) && n.IsNotLike(e) ? e : c;
+    var p0 = w.IsLike(n) && n.IsNotLike(e) && w.IsNotLike(s) ? w : c;
+    var p1 = n.IsLike(e) && n.IsNotLike(w) && e.IsNotLike(s) ? e : c;
+    var p2 = w.IsLike(s) && w.IsNotLike(n) && s.IsNotLike(e) ? w : c;
+    var p3 = s.IsLike(e) && w.IsNotLike(s) && n.IsNotLike(e) ? e : c;
 
-      var d = sPixel.Interpolate(p0, p1, p2, p3);
+    var d = sPixel.Interpolate(p0, p1, p2, p3);
 
-      worker.TargetP0P0(d);
-    }
+    worker.TargetP0P0(d);
+  }
 
-    public static void DES2(IPixelWorker<sPixel> worker) {
-      var n = worker.SourceP0M1();
-      var w = worker.SourceM1P0();
-      var c = worker.SourceP0P0();
-      var e = worker.SourceP1P0();
-      var s = worker.SourceP0P1();
-      var se = worker.SourceP1P1();
+  public static void DES2(IPixelWorker<sPixel> worker) {
+    var n = worker.SourceP0M1();
+    var w = worker.SourceM1P0();
+    var c = worker.SourceP0P0();
+    var e = worker.SourceP1P0();
+    var s = worker.SourceP0P1();
+    var se = worker.SourceP1P1();
 
-      var p0 = w.IsLike(n) && n.IsNotLike(e) && w.IsNotLike(s) ? w : c;
-      var p1 = n.IsLike(e) && n.IsNotLike(w) && e.IsNotLike(s) ? e : c;
-      var p2 = w.IsLike(s) && w.IsNotLike(n) && s.IsNotLike(e) ? w : c;
-      var p3 = s.IsLike(e) && w.IsNotLike(s) && n.IsNotLike(e) ? e : c;
+    var p0 = w.IsLike(n) && n.IsNotLike(e) && w.IsNotLike(s) ? w : c;
+    var p1 = n.IsLike(e) && n.IsNotLike(w) && e.IsNotLike(s) ? e : c;
+    var p2 = w.IsLike(s) && w.IsNotLike(n) && s.IsNotLike(e) ? w : c;
+    var p3 = s.IsLike(e) && w.IsNotLike(s) && n.IsNotLike(e) ? e : c;
 
-      var cx = c;
-      var ce = sPixel.Interpolate(c, e, 3, 1);
-      var cs = sPixel.Interpolate(c, s, 3, 1);
-      var cse = sPixel.Interpolate(c, se, 3, 1);
+    var cx = c;
+    var ce = sPixel.Interpolate(c, e, 3, 1);
+    var cs = sPixel.Interpolate(c, s, 3, 1);
+    var cse = sPixel.Interpolate(c, se, 3, 1);
 
 
-      var d1 = sPixel.Interpolate(p0, cx, 3, 1);
-      var d2 = sPixel.Interpolate(p1, ce, 3, 1);
-      var d3 = sPixel.Interpolate(p2, cs, 3, 1);
-      var d4 = sPixel.Interpolate(p3, cse, 3, 1);
+    var d1 = sPixel.Interpolate(p0, cx, 3, 1);
+    var d2 = sPixel.Interpolate(p1, ce, 3, 1);
+    var d3 = sPixel.Interpolate(p2, cs, 3, 1);
+    var d4 = sPixel.Interpolate(p3, cse, 3, 1);
 
-      worker.TargetP0P0(d1);
-      worker.TargetP1P0(d2);
-      worker.TargetP0P1(d3);
-      worker.TargetP1P1(d4);
-    }
-  } // end class
-} // end namespace
+    worker.TargetP0P0(d1);
+    worker.TargetP1P0(d2);
+    worker.TargetP0P1(d3);
+    worker.TargetP1P1(d4);
+  }
+} // end class
+// end namespace

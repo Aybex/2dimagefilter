@@ -23,22 +23,22 @@ using System.ComponentModel;
 
 using Imager;
 
-namespace Classes.ImageManipulators {
-  [Description("Pixel art filters")]
-  internal abstract class AScaler : IImageManipulator {
-    #region Implementation of IImageManipulator
-    public bool SupportsWidth => false;
-    public bool SupportsHeight => false;
-    public bool SupportsRepetitionCount => true;
-    public bool SupportsGridCentering => false;
-    public bool SupportsRadius => false;
-    public bool ChangesResolution => true;
-    public bool SupportsThresholds => true;
-    public abstract string Description { get; }
-    #endregion
+namespace Classes.ImageManipulators; 
 
-    public abstract cImage Apply(cImage source);
-    public abstract byte ScaleFactorX { get; }
-    public abstract byte ScaleFactorY { get; }
-  }
+[Description("Pixel art filters")]
+internal abstract class AScaler : IImageManipulator {
+  #region Implementation of IImageManipulator
+  public bool SupportsWidth => false;
+  public bool SupportsHeight => false;
+  public bool SupportsRepetitionCount => true;
+  public bool SupportsGridCentering => false;
+  public bool SupportsRadius => false;
+  public bool ChangesResolution => true;
+  public bool SupportsThresholds => true;
+  public abstract string Description { get; }
+  #endregion
+
+  public abstract cImage Apply(cImage source);
+  public abstract byte ScaleFactorX { get; }
+  public abstract byte ScaleFactorY { get; }
 }

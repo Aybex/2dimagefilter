@@ -20,15 +20,15 @@
 #endregion
 using System.Drawing;
 
-namespace System.Windows {
-  internal static partial class RectExtensions {
-    /// <summary>
-    /// Converts the given System.Windows.Rect into a System.Drawing.Rectangle
-    /// </summary>
-    /// <param name="this">This System.Windows.Rect</param>
-    /// <returns>Converted Rectangle</returns>
-    public static Rectangle ToRectangle(this Rect @this) 
-      => new Rectangle((int)@this.X, (int)@this.Y, (int)@this.Width, (int)@this.Height)
-    ;
-  }
+namespace System.Windows; 
+
+internal static partial class RectExtensions {
+  /// <summary>
+  /// Converts the given System.Windows.Rect into a System.Drawing.Rectangle
+  /// </summary>
+  /// <param name="this">This System.Windows.Rect</param>
+  /// <returns>Converted Rectangle</returns>
+  public static Rectangle ToRectangle(this Rect @this) 
+    => new Rectangle((int)@this.X, (int)@this.Y, (int)@this.Width, (int)@this.Height)
+  ;
 }
