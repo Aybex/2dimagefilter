@@ -20,15 +20,14 @@
 #endregion
 
 using System.ComponentModel;
-using System.Diagnostics.Contracts;
 using System.Drawing.Drawing2D;
 
 using Imager;
 
 namespace Classes.ImageManipulators; 
 
-[Description("GDI+ .NET internal filters")]
-internal class Interpolator : IImageManipulator {
+[Description("GDI+ .NET public filters")]
+public class Interpolator : IImageManipulator {
   private readonly InterpolationMode _type;
 
   #region Implementation of IImageManipulator

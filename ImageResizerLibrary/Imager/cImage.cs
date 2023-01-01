@@ -22,10 +22,7 @@
 // TODO: seamless carving aka content-aware resizing
 // TODO: smart filtering http://www.hiend3d.com/smartflt.html
 // TODO: on transparent out of bounds mode, resize source image first, apply filter, resize back
-using System;
 using System.Collections.Concurrent;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using Imager.Interface;
 
 namespace Imager; 

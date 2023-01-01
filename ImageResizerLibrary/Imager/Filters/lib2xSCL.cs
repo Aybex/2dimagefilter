@@ -19,8 +19,6 @@
  */
 #endregion
 
-using System.Runtime.CompilerServices;
-
 namespace Imager.Filters; 
 
 internal static class lib2xSCL {

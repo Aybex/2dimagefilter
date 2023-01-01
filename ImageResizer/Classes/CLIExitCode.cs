@@ -20,7 +20,7 @@
 #endregion
 namespace Classes; 
 
-internal enum CLIExitCode {
+public enum CLIExitCode {
   RestartingInGuiMode = -1,
   OK = 0,
   UnknownParameter=1,

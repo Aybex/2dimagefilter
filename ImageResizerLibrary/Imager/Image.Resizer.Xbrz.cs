@@ -22,8 +22,6 @@
 using Classes;
 using Imager.Filters;
 using Imager.Interface;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
 #if NET45
 using System.Windows;

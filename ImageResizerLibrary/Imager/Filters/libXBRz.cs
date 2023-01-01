@@ -19,9 +19,6 @@
  */
 #endregion
 
-using System;
-using System.Runtime.CompilerServices;
-
 namespace Imager.Filters; 
 
 internal class libXBRz {

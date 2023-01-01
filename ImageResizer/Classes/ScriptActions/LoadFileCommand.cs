@@ -19,13 +19,11 @@
  */
 #endregion
 using System.Diagnostics.Contracts;
-using System.Drawing;
-
 using Imager;
 
 namespace Classes.ScriptActions; 
 
-internal class LoadFileCommand : IScriptAction {
+public class LoadFileCommand : IScriptAction {
   #region Implementation of IScriptAction
   public bool ChangesSourceImage => true;
 

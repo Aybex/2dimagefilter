@@ -19,10 +19,7 @@
  */
 #endregion
 
-using System;
 using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
 
 namespace ImageResizer.UserControls; 
 
@@ -75,7 +72,7 @@ public partial class ImageWithDetails : UserControl {
     var pictureBox = pbImage;
     var panel = pnImage;
 
-    if (SizeMode == PictureBoxSizeMode.AutoSize || SizeMode == PictureBoxSizeMode.StretchImage || SizeMode == PictureBoxSizeMode.Zoom) {
+    if (SizeMode is PictureBoxSizeMode.AutoSize or PictureBoxSizeMode.StretchImage or PictureBoxSizeMode.Zoom) {
       pictureBox.Dock = DockStyle.Fill;
       panel.AutoScroll = false;
       return;

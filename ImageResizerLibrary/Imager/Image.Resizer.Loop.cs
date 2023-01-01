@@ -19,10 +19,8 @@
  */
 #endregion
 // This file is only generated to unroll the main image working loop upon compile time
-using System;
 using System.Drawing;
 using System.Collections.Concurrent;
-using System.Threading.Tasks;
 #if NET45
 using System.Windows;
 #endif

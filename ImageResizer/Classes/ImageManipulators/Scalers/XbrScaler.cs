@@ -19,13 +19,12 @@
  */
 #endregion
 
-using System.Drawing;
 using Imager;
 using Imager.Interface;
 
 namespace Classes.ImageManipulators.Scalers; 
 
-internal class XbrScaler : AScaler {
+public class XbrScaler : AScaler {
   private readonly XbrScalerType _type;
   private readonly bool _allowAlphaBlending;
 

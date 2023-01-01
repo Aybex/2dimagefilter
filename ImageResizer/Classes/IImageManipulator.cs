@@ -20,7 +20,7 @@
 #endregion
 namespace Classes; 
 
-internal interface IImageManipulator {
+public interface IImageManipulator {
   bool SupportsWidth { get; }
   bool SupportsHeight { get; }
   bool SupportsRepetitionCount { get; }

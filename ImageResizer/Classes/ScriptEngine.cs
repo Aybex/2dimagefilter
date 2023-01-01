@@ -19,16 +19,12 @@
  */
 #endregion
 
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using System.Drawing;
-using System.Linq;
 using Imager;
 
 namespace Classes; 
 
-internal class ScriptEngine {
+public class ScriptEngine {
 
   /// <summary>
   /// Current source image.

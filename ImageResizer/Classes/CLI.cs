@@ -19,14 +19,8 @@
  */
 #endregion
 
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using System.Drawing;
 using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 
 using Classes.ScriptActions;
@@ -38,7 +32,7 @@ namespace Classes;
 /// <summary>
 /// The command line interface for the application.
 /// </summary>
-internal static class CLI {
+public static class CLI {
 
   /// <summary>
   /// Parses the command line arguments.
@@ -126,7 +120,7 @@ internal static class CLI {
 
     var longestFilterNameLength = SupportedManipulators.MANIPULATORS.Select(k => k.Key.Length).Max();
 
-    // we're loading the help text as a template from an internal resource and then filling out the fields
+    // we're loading the help text as a template from an public resource and then filling out the fields
     var lines = Resources.CLIHelpText
         .Replace("{appname}", ReflectionUtils.GetEntryAssemblyAttribute<AssemblyProductAttribute>(p => p.Product).ToString())
         .Replace("{version}", ReflectionUtils.GetEntryAssemblyAttribute<AssemblyFileVersionAttribute>(v => v.Version).ToString())
@@ -195,7 +189,7 @@ internal static class CLI {
   /// <param name="fullFilePath">The filename.</param>
   /// <param name="image">The image.</param>
   /// <returns><c>true</c> on success; otherwise, <c>false</c>.</returns>
-  internal static CLIExitCode SaveHelper(string fullFilePath, Image image) {
+  public static CLIExitCode SaveHelper(string fullFilePath, Image image) {
     Contract.Requires(fullFilePath != null);
 
     if (image == null)

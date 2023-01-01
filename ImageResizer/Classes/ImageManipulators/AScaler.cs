@@ -26,7 +26,7 @@ using Imager;
 namespace Classes.ImageManipulators; 
 
 [Description("Pixel art filters")]
-internal abstract class AScaler : IImageManipulator {
+public abstract class AScaler : IImageManipulator {
   #region Implementation of IImageManipulator
   public bool SupportsWidth => false;
   public bool SupportsHeight => false;

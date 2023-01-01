@@ -21,14 +21,13 @@
 
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
-using System.Drawing;
 using Imager;
 using Imager.Classes;
 
 namespace Classes.ImageManipulators; 
 
 [Description("General purpose filters")]
-internal class Resampler : IImageManipulator {
+public class Resampler : IImageManipulator {
   private readonly KernelType _type;
 
   #region Implementation of IImageManipulator

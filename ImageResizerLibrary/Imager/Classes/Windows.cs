@@ -21,8 +21,6 @@
 
 // TODO: radius&alpha/sigma parametrized resampling (as some windowing functions already support a radius and an alpha/sigma param)
 // Note: There are still some todos in here, mostly when I could not get a good formula for the given window. If you have one, please send me a link.
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 /*
  * Helpful links to understand what's going on in here:

@@ -19,7 +19,6 @@
  */
 #endregion
 
-using System;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
 
@@ -28,7 +27,7 @@ using Imager;
 namespace Classes.ImageManipulators; 
 
 [Description("Color component extractors")]
-internal class PlaneExtractor : IImageManipulator {
+public class PlaneExtractor : IImageManipulator {
   private readonly Func<cImage, cImage> _planeExtractionFunction;
 
   #region Implementation of IImageManipulator

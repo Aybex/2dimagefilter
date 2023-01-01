@@ -19,11 +19,9 @@
  */
 #endregion
 
-using System;
 using System.Collections.Concurrent;
 using System.Diagnostics.Contracts;
 using System.Drawing;
-using System.Threading.Tasks;
 #if NET45
 using System.Windows;
 #endif

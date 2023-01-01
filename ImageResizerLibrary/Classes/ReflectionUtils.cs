@@ -19,17 +19,14 @@
  */
 #endregion
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
-using System.Linq;
 using System.Reflection;
 
 
 namespace Classes; 
 
-internal static class ReflectionUtils {
+public static class ReflectionUtils {
   /// <summary>
   /// Gets a typed enumeration of all values of a given enumeration.
   /// </summary>

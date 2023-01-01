@@ -19,9 +19,6 @@
  */
 #endregion
 
-using System;
-using System.Drawing;
-
 using Classes.ImageManipulators;
 using Imager;
 using Imager.Interface;
@@ -30,7 +27,7 @@ using word = System.UInt16;
 
 namespace Classes.ScriptActions; 
 
-internal class ResizeCommand : IScriptAction {
+public class ResizeCommand : IScriptAction {
   #region Implementation of IScriptAction
   public bool ChangesSourceImage => false;
   public bool ChangesTargetImage => true;

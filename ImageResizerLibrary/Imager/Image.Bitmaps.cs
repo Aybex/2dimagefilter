@@ -19,15 +19,8 @@
  */
 #endregion
 
-using System;
 using System.Collections.Concurrent;
 using System.Drawing;
-#if NET45
-using System.Runtime.CompilerServices;
-#endif
-using System.Threading.Tasks;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace Imager; 
 
@@ -40,9 +33,7 @@ partial class cImage {
   /// <param name="target">The target.</param>
   /// <param name="targetOffset">The target offset.</param>
   /// <param name="count">The count.</param>
-#if NET45
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
+
   private static unsafe void _CopyBlock(int* source, int sourceOffset, int* target, int targetOffset, int count) {
     source += sourceOffset;
     target += targetOffset;
@@ -70,9 +61,6 @@ partial class cImage {
       _CopyPixels(x, y, width, height, (int*) sourceData.ToPointer(), sourceWidth, (int*) target, targetWidth, sourceStride >> 2, targetStride);
   }
 
-#if NET45
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
   private static unsafe void _CopyPixels(int x, int y, int width, int height, int* source, int sourceWidth, int* target, int targetWidth, int sourceStrideNormalized, int targetStrideNormalized) {
     if (x == 0 && targetWidth == sourceWidth && sourceStrideNormalized == targetStrideNormalized) {
       // We can copy pixel data directly
@@ -170,63 +158,5 @@ partial class cImage {
   }
 
 
-#if NET45
-    /// <summary>
-    /// Converts this image to a <see cref="BitmapSource"/> instance.
-    /// </summary>
-    /// <param name="sx">The start x.</param>
-    /// <param name="sy">The start y.</param>
-    /// <param name="width">The width.</param>
-    /// <param name="height">The height.</param>
-    /// <returns>
-    /// The <see cref="BitmapSource"/> instance
-    /// </returns>
-    public BitmapSource ToBitmapSource(int sx, int sy, int width, int height) {
-      var result = new WriteableBitmap(width, height, 96, 96, PixelFormats.Bgra32, null);
-      using (var data = result.LockData())
-        _CopyPixels(sx, sy, width, height, this._imageData, this._width, this._width, this._height, data.Bitmap.BackBuffer, data.Bitmap.BackBufferStride, data.Bitmap.PixelWidth, data.Bitmap.PixelHeight);
-
-      return result;
-    }
-
-    /// <summary>
-    /// Converts this image to a <see cref="BitmapSource"/> instance.
-    /// </summary>
-    /// <returns>The <see cref="BitmapSource"/> instance</returns>
-    public BitmapSource ToBitmapSource() => this.ToBitmapSource(0, 0, this._width, this._height);
-
-    // NOTE: Bitmap objects does not support parallel read-outs blame Microsoft
-    /// <summary>
-    /// Initializes a new instance of the <see cref="cImage"/> class from a <see cref="BitmapSource"/> instance.
-    /// </summary>
-    /// <param name="bitmapSource">The bitmap.</param>
-    public static cImage FromBitmapSource(BitmapSource bitmapSource) {
-      if (bitmapSource == null)
-        return null;
-
-      var result = new cImage(bitmapSource.PixelWidth, bitmapSource.PixelHeight);
-
-      var finalSource = bitmapSource;
-
-      if (bitmapSource.Format != PixelFormats.Bgra32) {
-        var formatedBitmapSource = new FormatConvertedBitmap();
-
-        formatedBitmapSource.BeginInit();
-        formatedBitmapSource.Source = bitmapSource;
-        formatedBitmapSource.DestinationFormat = PixelFormats.Bgra32;
-        formatedBitmapSource.EndInit();
-
-        finalSource = formatedBitmapSource;
-      }
-
-      var writeableBitmap = new WriteableBitmap(finalSource);
-
-      using (var data = writeableBitmap.LockData())
-        _CopyPixels(0, 0, result._width, result._height, data.Bitmap.BackBuffer, data.Bitmap.BackBufferStride, data.Bitmap.PixelWidth, data.Bitmap.PixelHeight, result._imageData, result._width, result._width, result._height);
-
-      return result;
-    }
-
-#endif
 
 }

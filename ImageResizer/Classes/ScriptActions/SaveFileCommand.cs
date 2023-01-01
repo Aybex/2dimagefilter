@@ -19,15 +19,12 @@
  */
 #endregion
 
-using System;
 using System.Diagnostics.Contracts;
-using System.Drawing;
-
 using Imager;
 
 namespace Classes.ScriptActions; 
 
-internal class SaveFileCommand : IScriptAction {
+public class SaveFileCommand : IScriptAction {
   #region Implementation of IScriptAction
   public bool ChangesSourceImage => false;
 

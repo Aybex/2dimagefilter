@@ -22,21 +22,21 @@ namespace ImageResizer.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        public Resources() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ImageResizer.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace ImageResizer.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -70,7 +70,7 @@ namespace ImageResizer.Properties {
         ///   the Free Software Foundation, either version 3 of the License, or
         ///   (at your option) any later version. [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string CLIHelpText {
+        public static string CLIHelpText {
             get {
                 return ResourceManager.GetString("CLIHelpText", resourceCulture);
             }
@@ -79,7 +79,7 @@ namespace ImageResizer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Height {
+        public static System.Drawing.Bitmap Height {
             get {
                 object obj = ResourceManager.GetObject("Height", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -89,7 +89,7 @@ namespace ImageResizer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Horizontal {
+        public static System.Drawing.Bitmap Horizontal {
             get {
                 object obj = ResourceManager.GetObject("Horizontal", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -99,7 +99,7 @@ namespace ImageResizer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ProgressCircularBlue {
+        public static System.Drawing.Bitmap ProgressCircularBlue {
             get {
                 object obj = ResourceManager.GetObject("ProgressCircularBlue", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -109,7 +109,7 @@ namespace ImageResizer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Repeat {
+        public static System.Drawing.Bitmap Repeat {
             get {
                 object obj = ResourceManager.GetObject("Repeat", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -119,7 +119,7 @@ namespace ImageResizer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Resize {
+        public static System.Drawing.Bitmap Resize {
             get {
                 object obj = ResourceManager.GetObject("Resize", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -129,7 +129,7 @@ namespace ImageResizer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Switch {
+        public static System.Drawing.Bitmap Switch {
             get {
                 object obj = ResourceManager.GetObject("Switch", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -139,7 +139,7 @@ namespace ImageResizer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Failed to load.
         /// </summary>
-        internal static string ttCouldNotLoadImage {
+        public static string ttCouldNotLoadImage {
             get {
                 return ResourceManager.GetString("ttCouldNotLoadImage", resourceCulture);
             }
@@ -148,7 +148,7 @@ namespace ImageResizer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Value too small.
         /// </summary>
-        internal static string ttNeedWidthAndHeightAboveZero {
+        public static string ttNeedWidthAndHeightAboveZero {
             get {
                 return ResourceManager.GetString("ttNeedWidthAndHeightAboveZero", resourceCulture);
             }
@@ -157,7 +157,7 @@ namespace ImageResizer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to JPEG Encoder missing.
         /// </summary>
-        internal static string ttNoJpegSupport {
+        public static string ttNoJpegSupport {
             get {
                 return ResourceManager.GetString("ttNoJpegSupport", resourceCulture);
             }
@@ -166,7 +166,7 @@ namespace ImageResizer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to No script.
         /// </summary>
-        internal static string ttNoScriptToSave {
+        public static string ttNoScriptToSave {
             get {
                 return ResourceManager.GetString("ttNoScriptToSave", resourceCulture);
             }
@@ -175,7 +175,7 @@ namespace ImageResizer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to No image.
         /// </summary>
-        internal static string ttNothingToResize {
+        public static string ttNothingToResize {
             get {
                 return ResourceManager.GetString("ttNothingToResize", resourceCulture);
             }
@@ -184,7 +184,7 @@ namespace ImageResizer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to No image.
         /// </summary>
-        internal static string ttNothingToSave {
+        public static string ttNothingToSave {
             get {
                 return ResourceManager.GetString("ttNothingToSave", resourceCulture);
             }
@@ -193,7 +193,7 @@ namespace ImageResizer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Unknown filter.
         /// </summary>
-        internal static string ttUnknownFilter {
+        public static string ttUnknownFilter {
             get {
                 return ResourceManager.GetString("ttUnknownFilter", resourceCulture);
             }
@@ -202,7 +202,7 @@ namespace ImageResizer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Could not load {0}\r\n\r\n{1}.
         /// </summary>
-        internal static string txCouldNotLoadImage {
+        public static string txCouldNotLoadImage {
             get {
                 return ResourceManager.GetString("txCouldNotLoadImage", resourceCulture);
             }
@@ -211,7 +211,7 @@ namespace ImageResizer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Need a width and height &gt; 0 to apply interpolation..
         /// </summary>
-        internal static string txNeedWidthAndHeightAboveZero {
+        public static string txNeedWidthAndHeightAboveZero {
             get {
                 return ResourceManager.GetString("txNeedWidthAndHeightAboveZero", resourceCulture);
             }
@@ -220,7 +220,7 @@ namespace ImageResizer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to System has no support to save as JPEG !.
         /// </summary>
-        internal static string txNoJpegSupport {
+        public static string txNoJpegSupport {
             get {
                 return ResourceManager.GetString("txNoJpegSupport", resourceCulture);
             }
@@ -229,7 +229,7 @@ namespace ImageResizer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to There is no script to save..
         /// </summary>
-        internal static string txNoScriptToSave {
+        public static string txNoScriptToSave {
             get {
                 return ResourceManager.GetString("txNoScriptToSave", resourceCulture);
             }
@@ -238,7 +238,7 @@ namespace ImageResizer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Unable to resize file: there is nothing to resize!.
         /// </summary>
-        internal static string txNothingToResize {
+        public static string txNothingToResize {
             get {
                 return ResourceManager.GetString("txNothingToResize", resourceCulture);
             }
@@ -247,7 +247,7 @@ namespace ImageResizer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to There is nothing to save..
         /// </summary>
-        internal static string txNothingToSave {
+        public static string txNothingToSave {
             get {
                 return ResourceManager.GetString("txNothingToSave", resourceCulture);
             }
@@ -256,7 +256,7 @@ namespace ImageResizer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Unable to resize file: there is no filter named &apos;{0}&apos;.
         /// </summary>
-        internal static string txUnknownFilter {
+        public static string txUnknownFilter {
             get {
                 return ResourceManager.GetString("txUnknownFilter", resourceCulture);
             }
@@ -265,7 +265,7 @@ namespace ImageResizer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to https://code.google.com/p/2dimagefilter/.
         /// </summary>
-        internal static string urlProject {
+        public static string urlProject {
             get {
                 return ResourceManager.GetString("urlProject", resourceCulture);
             }
@@ -274,7 +274,7 @@ namespace ImageResizer.Properties {
         /// <summary>
         ///   Looks up a localized string similar to https://code.google.com/p/2dimagefilter/w/list.
         /// </summary>
-        internal static string urlWiki {
+        public static string urlWiki {
             get {
                 return ResourceManager.GetString("urlWiki", resourceCulture);
             }
@@ -283,7 +283,7 @@ namespace ImageResizer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Vertical {
+        public static System.Drawing.Bitmap Vertical {
             get {
                 object obj = ResourceManager.GetObject("Vertical", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -293,7 +293,7 @@ namespace ImageResizer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Width {
+        public static System.Drawing.Bitmap Width {
             get {
                 object obj = ResourceManager.GetObject("Width", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));

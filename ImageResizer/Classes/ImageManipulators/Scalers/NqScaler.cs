@@ -19,13 +19,12 @@
  */
 #endregion
 
-using System.Drawing;
 using Imager;
 using Imager.Interface;
 
 namespace Classes.ImageManipulators.Scalers; 
 
-internal class NqScaler : AScaler {
+public class NqScaler : AScaler {
   private readonly NqScalerType _type;
   private readonly NqMode _mode;
 

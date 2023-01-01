@@ -19,11 +19,9 @@
  */
 #endregion
 
-using System;
-
 namespace Classes; 
 
-internal class ScriptSerializerException : Exception {
+public class ScriptSerializerException : Exception {
   public string Filename { get; }
   public int LineNumber { get; }
   public CLIExitCode ErrorType { get; }

@@ -20,8 +20,6 @@
 #endregion
 
 // TODO: consider a second alpha handling mode like in https://code.google.com/p/hqx-sharp/
-using System;
-using System.Collections.Generic;
 using System.Drawing;
 #if NET45
 using System.Windows;

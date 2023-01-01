@@ -1,14 +1,11 @@
-﻿using System;
-using System.IO;
-using System.Windows.Forms;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 
 namespace Classes; 
 
 /// <summary>
 /// This class stores the different configuration options of the application and handles config save/load
 /// </summary>
-internal static class Config {
+public static class Config {
   #region consts
   private const string _ROOT_NODE_NAME = "Configuration";
   private const string _VALUE_ATTRIBUTE_NAME = "value";

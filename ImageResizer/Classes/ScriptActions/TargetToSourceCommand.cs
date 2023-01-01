@@ -19,13 +19,11 @@
  */
 #endregion
 
-using System.Drawing;
-
 using Imager;
 
 namespace Classes.ScriptActions; 
 
-internal class TargetToSourceCommand : IScriptAction {
+public class TargetToSourceCommand : IScriptAction {
   #region Implementation of IScriptAction
   public bool ChangesSourceImage => true;
   public bool ChangesTargetImage => true;

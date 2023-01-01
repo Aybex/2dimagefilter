@@ -23,12 +23,10 @@ using Classes.ImageManipulators.Scalers;
 using Imager;
 using Imager.Classes;
 using Imager.Interface;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Classes; 
 
-internal static class SupportedManipulators {
+public static class SupportedManipulators {
   public static readonly KeyValuePair<string, IImageManipulator>[] MANIPULATORS = new KeyValuePair<string, IImageManipulator>[0]
 
     #region add interpolators

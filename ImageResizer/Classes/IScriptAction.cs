@@ -19,13 +19,11 @@
  */
 #endregion
 
-using System.Drawing;
-
 using Imager;
 
 namespace Classes; 
 
-internal interface IScriptAction {
+public interface IScriptAction {
 
   bool ChangesSourceImage { get; }
   bool ChangesTargetImage { get; }

@@ -2,17 +2,12 @@
   <PropertyGroup>
     <TargetFramework>net7.0-windows</TargetFramework>
     <OutputType>Library</OutputType>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <UseWPF>true</UseWPF>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DefineConstants>TRACE;DEBUG;NETFX_45</DefineConstants>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
+
+
   <ItemGroup>
     <Compile Update="Imager\Image.Resizer.Loop.cs">
       <DependentUpon>Image.Resizer.Loop.tt</DependentUpon>
@@ -37,10 +32,9 @@
       <LastGenOutput>PixelWorker.cs</LastGenOutput>
     </None>
   </ItemGroup>
+
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
   </ItemGroup>
 </Project>

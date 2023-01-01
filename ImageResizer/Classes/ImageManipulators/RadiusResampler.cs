@@ -19,16 +19,14 @@
  */
 #endregion
 
-using System;
 using System.ComponentModel;
-using System.Drawing;
 using Imager;
 using Imager.Classes;
 
 namespace Classes.ImageManipulators; 
 
 [Description("Radius-based filters")]
-internal class RadiusResampler : IImageManipulator {
+public class RadiusResampler : IImageManipulator {
   private readonly WindowType _type;
 
   #region Implementation of IImageManipulator

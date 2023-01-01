@@ -21,18 +21,14 @@
 
 using Classes.ScriptActions;
 using Imager.Interface;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 using word = System.UInt16;
 
 namespace Classes; 
 
-internal class ScriptSerializer {
+public class ScriptSerializer {
   #region consts
   /// <summary>
   /// Default file extensions for script files.
@@ -47,25 +43,25 @@ internal class ScriptSerializer {
   /// </summary>
   private static readonly Regex _FILTER_REGEX = new Regex(@"^(?<filter>.*?)(\((?<params>[^\)]*?)\))?$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-  internal const string CONST_BOUNDS_VALUE = "const";
-  internal const string HALF_BOUNDS_VALUE = "half";
-  internal const string WHOLE_BOUNDS_VALUE = "whole";
-  internal const string WRAP_BOUNDS_VALUE = "wrap";
-  internal const string TRANSPARENT_BOUNDS_VALUE = "transparent";
+  public const string CONST_BOUNDS_VALUE = "const";
+  public const string HALF_BOUNDS_VALUE = "half";
+  public const string WHOLE_BOUNDS_VALUE = "whole";
+  public const string WRAP_BOUNDS_VALUE = "wrap";
+  public const string TRANSPARENT_BOUNDS_VALUE = "transparent";
 
-  internal const string REPEAT_PARAMETER_NAME = "repeat";
-  internal const string RADIUS_PARAMETER_NAME = "radius";
-  internal const string CENTERED_GRID_PARAMETER_NAME = "centered";
-  internal const string THRESHOLDS_PARAMETER_NAME = "thresholds";
-  internal const string HBOUNDS_PARAMETER_NAME = "hbounds";
-  internal const string VBOUNDS_PARAMETER_NAME = "vbounds";
+  public const string REPEAT_PARAMETER_NAME = "repeat";
+  public const string RADIUS_PARAMETER_NAME = "radius";
+  public const string CENTERED_GRID_PARAMETER_NAME = "centered";
+  public const string THRESHOLDS_PARAMETER_NAME = "thresholds";
+  public const string HBOUNDS_PARAMETER_NAME = "hbounds";
+  public const string VBOUNDS_PARAMETER_NAME = "vbounds";
 
-  internal const string LOAD_COMMAND_NAME = "/load";
-  internal const string SCRIPT_COMMAND_NAME = "/script";
-  internal const string SAVE_COMMAND_NAME = "/save";
-  internal const string RESIZE_COMMAND_NAME = "/resize";
-  internal const string STDOUT_COMMAND_NAME = "/stdout";
-  internal const string STDIN_COMMAND_NAME = "/stdin";
+  public const string LOAD_COMMAND_NAME = "/load";
+  public const string SCRIPT_COMMAND_NAME = "/script";
+  public const string SAVE_COMMAND_NAME = "/save";
+  public const string RESIZE_COMMAND_NAME = "/resize";
+  public const string STDOUT_COMMAND_NAME = "/stdout";
+  public const string STDIN_COMMAND_NAME = "/stdin";
 
   #endregion
   /// <summary>

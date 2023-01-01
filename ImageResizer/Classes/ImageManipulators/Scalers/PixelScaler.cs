@@ -20,13 +20,12 @@
 #endregion
 
 
-using System.Drawing;
 using Imager;
 using Imager.Interface;
 
 namespace Classes.ImageManipulators.Scalers; 
 
-internal class PixelScaler : AScaler {
+public class PixelScaler : AScaler {
   private readonly PixelScalerType _type;
 
   #region Implementation of AScaler

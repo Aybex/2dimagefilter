@@ -19,13 +19,11 @@
  */
 #endregion
 
-using System.Drawing;
-
 using Imager;
 
 namespace Classes.ScriptActions; 
 
-internal class NullTransformCommand : IScriptAction {
+public class NullTransformCommand : IScriptAction {
   #region Implementation of IScriptAction
   public bool ChangesSourceImage => false;
   public bool ChangesTargetImage => true;

@@ -19,8 +19,6 @@
  */
 #endregion
 
-using System;
-
 namespace Imager.Filters; 
 
 internal static class ReverseAntiAlias {
